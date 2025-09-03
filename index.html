@@ -1,0 +1,34 @@
+---
+layout: default
+paginate: true
+---
+
+<div class="posts">
+  {% for post in paginator.posts %}
+    <article class="post">
+
+    <div class="post-card">
+      <div class="post-meta">
+        <span class="post-tags">AWS, DevOps, Integrations</span>
+        <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+      </div>
+      <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="post-summary">
+        {{ post.excerpt | strip_html | truncate: 220 }}
+      </p>
+      <div class="read-more"><a href="{{ post.url | relative_url }}">READ MORE...</a></div>
+    </div>
+  
+    </article>
+  {% endfor %}
+</div>
+
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <a href="{{ paginator.previous_page_path }}">&laquo; Previous</a>
+  {% endif %}
+
+  {% if paginator.next_page %}
+    <a href="{{ paginator.next_page_path }}">Next &raquo;</a>
+  {% endif %}
+</div>

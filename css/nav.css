@@ -1,0 +1,90 @@
+/* Navigation styling */
+nav a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+
+.nav-toggle {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-menu a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+
+    max-height: 0;
+    opacity: 0;
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    pointer-events: none;
+    z-index: 200;
+  }
+
+  .nav-menu a {
+    padding: 0.5rem 0;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-menu a:last-child {
+    border-bottom: none;
+  }
+
+  .nav-menu a:hover {
+    color: #ffcc00;
+  }
+
+  .nav-menu.active {
+    max-height: 500px;
+    opacity: 1;
+    transform: scaleY(1);
+    pointer-events: auto;
+  }
+}

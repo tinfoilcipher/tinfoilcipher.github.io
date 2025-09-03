@@ -1,0 +1,103 @@
+/* Post styling */
+.post-card {
+  background-color: #444;
+  border: 5px solid #1e1e1e;
+  border-radius: 4px;
+  padding: 1.25rem;
+  margin-bottom: 0.25rem;
+  color: white;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.post-tags {
+  background-color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  color: #ddd;
+  font-size: 0.75rem;
+}
+
+.post-date {
+  background-color: #333;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  color: #ccc;
+  font-size: 0.75rem;
+}
+
+.post-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.post-title a {
+  color: white;
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: #aaa;
+}
+
+.post-summary {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ddd;
+  margin-bottom: 1rem;
+}
+
+/* Centre text styling */
+.center-text {
+  text-align: center;
+}
+
+/* Quote styling */
+blockquote {
+  font-style: italic;
+  margin: 20px 0;
+  padding-left: 20px;
+  border-left: 4px solid #ccc;
+  color: white !important;
+  font-size: 0.5rem;
+}
+
+/* Codeblock styling */
+code {
+  background-color: #1e1e1e;
+  color: #f8f8f2;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+pre, pre code {
+  background-color: #1e1e1e !important;
+  color: #f8f8f2 !important;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Hyperlink styling */
+a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  font-style: italic;
+}
+
+a:hover {
+  opacity: 0.85;
+}

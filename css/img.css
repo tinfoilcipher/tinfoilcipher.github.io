@@ -1,0 +1,33 @@
+/* Image styles */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.scaled-img-75 {
+  width: 75%;
+  height: auto;
+}
+
+.scaled-img-50 {
+  width: 50%;
+  height: auto;
+}
+
+.scaled-img-25 {
+  width: 25%;
+  height: auto;
+}
+
+/* Captioning styles */
+figure {
+  text-align: center;
+  margin: 0;
+}
+
+figcaption {
+  font-size: 1rem;
+  color: white;
+  margin-top: 10px;
+}
