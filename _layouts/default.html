@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
-
+    <link rel="icon" href="{{ "/assets/favicon.ico" | relative_url }}">
     {% include meta.html %}
    
     <!--[if lt IE 9]>
@@ -32,7 +32,7 @@
           </div>
 
             <nav class="nav">
-              <button class="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
+              
               <div class="nav-menu">
                 <a href="{{ site.baseurl }}/">Blog</a>
                 <a href="{{ site.baseurl }}/projects">Projects</a>
@@ -64,19 +64,6 @@
     </div>
 
     {% include analytics.html %}
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const toggle = document.querySelector('.nav-toggle');
-        const menu = document.querySelector('.nav-menu');
-
-        toggle.addEventListener('click', () => {
-          menu.classList.toggle('active');
-        });
-      });
-    </script>
-
-
 
   </body>
 </html>
