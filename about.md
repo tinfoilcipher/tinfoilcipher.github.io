@@ -20,6 +20,6 @@ I’m not the final authority on any topic I talk about here and I’m always ex
 
 Sometimes people email me asking if they can tip me for some information they found here. If you’re one of those people, it’s very nice of you but I’m not interested in some third party company harvesting your data or skimming pennies off a donation for my sake and I’m not really trying to make any money from this site, but I do appreciate the thought. If you really want to do something nice, let me know what you found useful or just share the article that helped you with someone else and hopefully they will find it helpful too 🙂
 
-I don’t run ads on this site and I don’t gather any identifiable visitor data. Privacy matters are important to me and hopefully they’re important to you.
+I don’t run ads on this site and I don’t gather any visitor data or analytics (although GitHub possibly does). Privacy matters are important to me and hopefully they’re important to you.
 
 I also like Linux, a lot.
