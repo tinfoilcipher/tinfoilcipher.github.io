@@ -19,7 +19,7 @@ url: https://tinfoilcipher.github.io
 
 baseurl: ""
 
-permalink: /:title/
+permalink: /:year/:month/:day/:title/
 
 version: v1.2.0
 
