@@ -22,7 +22,7 @@ Knowing that this required a certificate authority to work and RADIUS I figured 
 
 **Operating System**: Ubuntu 18.04  
 **Required Applications**: freeradius2, openssl  
-**Required Systems**: A functioning CA, see [**here**](/bind-dns-and-openssl-certificate-authority/) for a previous project.
+**Required Systems**: A functioning CA, see [**here**]({% post_url 2019-11-15-bind-dns-and-openssl-certificate-authority %}) for a previous project.
 
 ## Install Pre-Requisite Software
 
@@ -44,7 +44,7 @@ I am using UniFi which handles this configuration as a _Profile_ that is then as
 
 ## **Generate Certificates and Private Key**
 
-First we will need to get a signed client certificate as well as the CA's own certificate from our _Certificate Authority_ (I have covered [here](/bind-dns-and-openssl-certificate-authority/) how to set up a CA using **openssl** but any CA will do fine), we will need this to verify connection requests from WiFi clients.
+First we will need to get a signed client certificate as well as the CA's own certificate from our _Certificate Authority_ (I have covered [here]({% post_url 2019-11-15-bind-dns-and-openssl-certificate-authority %}) how to set up a CA using **openssl** but any CA will do fine), we will need this to verify connection requests from WiFi clients.
 
 In order to generate a _CSR_ (Certificate Signing Request) for our RADIUS server, we'll first need to save a configuration file:
 

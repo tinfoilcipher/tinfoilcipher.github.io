@@ -18,7 +18,7 @@ tags:
   - "vault"
 ---
 
-**EDITED: 07/2024**. Please take a look at [THIS ARTICLE](/reverse-proxies-certificates-and-you-nuance-in-integration/) for a follow up discussing the risks and nuances relating to using HTTPS Reverse Proxies. An HTTP reverse proxy may not be the right tool for your circumstances and using one carries certain risks.
+**EDITED: 07/2024**. Please take a look at [THIS ARTICLE]({% post_url 2024-07-16-reverse-proxies-certificates-and-you-nuance-in-integration %}) for a follow up discussing the risks and nuances relating to using HTTPS Reverse Proxies. An HTTP reverse proxy may not be the right tool for your circumstances and using one carries certain risks.
 
 Recently I was presented with a very common problem, offer up a service which uses an **[unprivileged port](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html)**, present that service through a reverse proxy of some kind and keep the entire system secure. In our case the service is Hashicorp Vault, frustratingly for such a popular application I couldn't find any guides or implementation examples for how to do this with the popular reverse proxies or loadbalancer solutions, so here I'm going to look at how to do this with NGINX.
 
@@ -41,7 +41,7 @@ I provisioned a _Certificate_ and _Private Key_ ahead of time for both Vault and
 
 ## Implementation - Vault
 
-For the sake of brevity, we'll be using an almost identical setup and hardening of Vault as described in a previous article [here](/hashicorp-vault-secure-installation-and-setup/), our Vault instance is going to be TLS encrypted and offer connections to the _localhost_ only. In advance I have provisioned a _Certificate_ and _Private Key_ for the Vault service.
+For the sake of brevity, we'll be using an almost identical setup and hardening of Vault as described in a previous article [here]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}), our Vault instance is going to be TLS encrypted and offer connections to the _localhost_ only. In advance I have provisioned a _Certificate_ and _Private Key_ for the Vault service.
 
 Our **vault.hcl** should look like:
 
@@ -139,6 +139,6 @@ Now if we attempt to connect to Vault via the GUI on TCP port 443 we should see 
   <figcaption>We're proxied!</figcaption>
 </figure>
 
-As this is a new Vault instance we will need to init the backend, this is covered in my previous Setup and Installation post [here](/hashicorp-vault-secure-installation-and-setup/) so I'm not going to cover it again, as we can see the proxy is working correctly.
+As this is a new Vault instance we will need to init the backend, this is covered in my previous Setup and Installation post [here]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) so I'm not going to cover it again, as we can see the proxy is working correctly.
 
 One important trade off to understand here is that **Certificate Authentication** with Vault will not work with this particular configuration as TLS termination is occurring at NGINX and a second TLS session is being established with Vault. This can however be done with some more advanced configuration of NGINX. If anyone is interested in any more advanced configuration let me know and I'll write it up.

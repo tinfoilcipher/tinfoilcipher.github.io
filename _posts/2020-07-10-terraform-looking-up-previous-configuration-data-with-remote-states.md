@@ -23,7 +23,7 @@ tags:
 State files are used by Terraform's in order to maintain it's "source of truth" on the current state of the configuration that it's responsible for. This serves three main functions:
 
 - Ensuring that any resources that you try to add, remove or change are consistent as they will be checked against what is currently held in the _State File_ before any action is taken
-- Ensuring that any manual changes to the environment can be removed automatically by comparing it to the _State File_, [removing configuration drift and enforcing immutability](/immutable-infrastructure-the-what-and-why/)
+- Ensuring that any manual changes to the environment can be removed automatically by comparing it to the _State File_, [removing configuration drift and enforcing immutability]({% post_url 2020-05-12-immutable-infrastructure-the-what-and-why %})
 - Ensuring that an entire environment can be fully re-provisioned in a consistent state with minimal human interaction
 
 _State Files_ are stored as JSON files and generated on a **terraform apply** operation. The can be recorded in an incredibly wide number of Terraform _storage backends_. By default if no _backend_ is defined in your HCL code then terraform will **locally save your _state file_ in your working directory**.

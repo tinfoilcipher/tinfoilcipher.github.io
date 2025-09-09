@@ -149,4 +149,4 @@ Chaining is a critical component when working with certificates at any scale and
 
 You could overcome this requirement by importing **every single certificate of every single website you want to trust** in to your browser, but as that is somewhat impractical, the reasons for using chains becomes apparent.
 
-Hopefully this clears up the logic behind certificates, for more practical work I would suggest taking a look at my [previous project of setting up your own CA](/bind-dns-and-openssl-certificate-authority/), it's a pretty painless system and teaches you a lot about the actual functions along the way.
+Hopefully this clears up the logic behind certificates, for more practical work I would suggest taking a look at my [previous project of setting up your own CA]({% post_url 2019-11-15-bind-dns-and-openssl-certificate-authority %}), it's a pretty painless system and teaches you a lot about the actual functions along the way.

@@ -397,7 +397,7 @@ spec:
 
 We can apply this with **kubectl apply -f virtual\_services.yaml** to create both _Virtual Services_.
 
-I've used some Terraform to set up a DNS _A Records_ in _Route 53_ for **cluster.tinfoil.private** and **\*.cluster.tinfoil.private** to point to the DNS Name of our _ALB_ (that process is broken down [here](/dynamically-manage-route-53-records-for-istio-gateways-using-terraform/) if you're interested). So we should now be able to access our services:
+I've used some Terraform to set up a DNS _A Records_ in _Route 53_ for **cluster.tinfoil.private** and **\*.cluster.tinfoil.private** to point to the DNS Name of our _ALB_ (that process is broken down [here]({% post_url 2021-02-23-dynamically-manage-route-53-records-for-istio-gateways-using-terraform %}) if you're interested). So we should now be able to access our services:
 
 <figure>
   <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/08-1.png">
@@ -415,4 +415,4 @@ This was a pretty challenging deployment, not aided by the big lack of detailed 
 
 I saw a lot of confused posts around online while I was working my way through this problem, especially with regards to understanding how certificates work and why you can't forward encrypted traffic using an _ALB_ the same as with an _ELB_, so I suspect there's a lot more people out there struggling with this deployment. Like everything else, it can be cracked with enough time reading the logs and enough patience to read all the resources out there.
 
-If you've found this useful, take a look at [this later post where we're looking at configuring Health Checks for this deployment](/elastic-kubernetes-service-istio-ingressgateway-and-alb-health-checking/).
+If you've found this useful, take a look at [this later post where we're looking at configuring Health Checks for this deployment]({% post_url 2021-12-14-elastic-kubernetes-service-istio-ingressgateway-and-alb-health-checking %}).

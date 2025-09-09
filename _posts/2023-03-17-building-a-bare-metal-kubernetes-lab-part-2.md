@@ -24,7 +24,7 @@ tags:
   - "sysadmin"
 ---
 
-In [Part 1](/building-a-bare-metal-kubernetes-lab-part-1/) of this project we covered building the infrastructure that underpins Kubernetes; the _Virtual Machines_ that make up it's _Control_ and _Data Planes_, implementing high availability, bootstrapping the core Kubernetes components and considerations for the various networking elements.
+In [Part 1]({% post_url 2023-01-20-building-a-bare-metal-kubernetes-lab-part-1 %}) of this project we covered building the infrastructure that underpins Kubernetes; the _Virtual Machines_ that make up it's _Control_ and _Data Planes_, implementing high availability, bootstrapping the core Kubernetes components and considerations for the various networking elements.
 
 All of this is great, but after all of that all our cluster doesn't actually **do** very much yet. It's still in a pretty raw state and not ready to serve out applications in anything but a very basic manner. In this post we'll look at building out some internal components within a Kubernetes cluster that will be needed for most scenarios.
 
@@ -165,7 +165,7 @@ With that in place, let's have a look at some of the networking challenges that 
 
 Before we get any more muddled with terminology, let's take a brief aside to discuss what _Services_ are in a Kubernetes context. We're not going to do an incredibly deep dive because this article is going to be long enough, but let's get some clarity.
 
-In [**Part 1**](/building-a-bare-metal-kubernetes-lab-part-1/), we allowed kubeadm to set up a large subnet (10.96.0.0/12) to provide _Services_. _Services_ are Kubernetes _Objects_ which, broadly speaking, are used to provide _Service Dis_covery for _Pods_ and forward traffic in one of two ways:
+In [**Part 1**]({% post_url 2023-01-20-building-a-bare-metal-kubernetes-lab-part-1 %}), we allowed kubeadm to set up a large subnet (10.96.0.0/12) to provide _Services_. _Services_ are Kubernetes _Objects_ which, broadly speaking, are used to provide _Service Dis_covery for _Pods_ and forward traffic in one of two ways:
 
 1. Exposing pods outside of the cluster, making them accessible to the "outside world"
 
@@ -193,7 +193,7 @@ The below diagram shows a high level outline of how this will work:
 
 Something to make note of here is that we will be using _MetalLB_ in Layer 2 mode. **[As the documentation implies](https://metallb.universe.tf/concepts/layer2/)** this is really only useful for failover between loads and not load distribution, for out purposes it should serve us fine though.
 
-Once we deploy MetalLB, _helmfile_ will automatically define a set of subnets which can be used to serve _LoadBalancers_ by applying a couple of YAML manifests. In [Part 1](/building-a-bare-metal-kubernetes-lab-part-1/) we reserved this range as **192.168.1.225 - 234** but Kubernetes needs to be informed of the range we intend to use. If you want to use a different range for your network be sure to edit the manifest at **helmfile/apps/metallb/manifests/loadbalancer\_bootstrap.yaml**:
+Once we deploy MetalLB, _helmfile_ will automatically define a set of subnets which can be used to serve _LoadBalancers_ by applying a couple of YAML manifests. In [Part 1]({% post_url 2023-01-20-building-a-bare-metal-kubernetes-lab-part-1 %}) we reserved this range as **192.168.1.225 - 234** but Kubernetes needs to be informed of the range we intend to use. If you want to use a different range for your network be sure to edit the manifest at **helmfile/apps/metallb/manifests/loadbalancer\_bootstrap.yaml**:
 
 ```yaml
 #--helmfile/apps/metallb/manifests/loadbalancer_bootstrap.yaml

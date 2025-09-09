@@ -18,13 +18,13 @@ tags:
   - "vault"
 ---
 
-Previously I've looked at how to **[lookup secrets from Hashicorp Vault using Ansible Tower](/hashicorp-vault-integrating-with-ansible-tower/)** however whilst that functionality is incredibly valuable it doesn't really tackle the issue of how to write _Playbooks_ which can interact with Vault. In this post we'll look at how we can use some excellent lookup functionality provided as part of the ansible which provides this functionality.
+Previously I've looked at how to **[lookup secrets from Hashicorp Vault using Ansible Tower]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %})** however whilst that functionality is incredibly valuable it doesn't really tackle the issue of how to write _Playbooks_ which can interact with Vault. In this post we'll look at how we can use some excellent lookup functionality provided as part of the ansible which provides this functionality.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01.png)
 
 ## Some Assumptions
 
-For this article, I'm going to be working with the same Vault instance set up [here](/hashicorp-vault-secure-installation-and-setup/) and hardened behind an NGINX reverse proxy [here](/hashicorp-vault-reverse-proxy-with-nginx/). What we're working with will be:
+For this article, I'm going to be working with the same Vault instance set up [here]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) and hardened behind an NGINX reverse proxy [here]({% post_url 2020-06-27-hashicorp-vault-reverse-proxy-with-nginx %}). What we're working with will be:
 
 - A single Vault instance running behind a TLS reverse proxy running at **https://mc-vault.madcaplaughs.co.uk**.
 - This Vault has a single _kv_ _Secrets Engine_ containing a single secret for the purposes of an example, the Secret contains several Key Value Pairs. This credential will be used to handle our AWS Access Credentials.

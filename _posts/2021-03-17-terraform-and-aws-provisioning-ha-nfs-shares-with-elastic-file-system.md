@@ -36,7 +36,7 @@ What we need from our share is for it to be:
 
 ## Provisioning with Terraform
 
-We'll be working an existing network roughly built in an earlier post [here](/infrastructure-as-code-multi-environment-continuous-deployment-with-terraform-and-bitbucket/), so I won't go in to the process of configuring the Terraform _backend_, we'll simply need a single Terraform _provider_ for AWS. Below are the few variables we'll use:
+We'll be working an existing network roughly built in an earlier post [here]({% post_url 2021-02-16-infrastructure-as-code-multi-environment-continuous-deployment-with-terraform-and-bitbucket %}), so I won't go in to the process of configuring the Terraform _backend_, we'll simply need a single Terraform _provider_ for AWS. Below are the few variables we'll use:
 
 ```bash
 #--environment.auto.tfvars

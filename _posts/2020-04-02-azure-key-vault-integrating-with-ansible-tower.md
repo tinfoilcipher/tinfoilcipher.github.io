@@ -21,7 +21,7 @@ tags:
   - "security"
 ---
 
-Recently we looked at [integrating Ansible Tower with Hashicorp Vault](/hashicorp-vault-integrating-with-ansible-tower/), but I thought it would be worth taking a look at another popular Secrets management system, [Azure Key Vault](https://azure.microsoft.com/en-gb/services/key-vault/). Whilst the solution isn't exactly the same using Azure Key Vault and Tower was my first time trying to integrate Ansible with a centralised Secrets repository, so let's take a look at how to achieve the integration as it's not very well documented and the specifics (like some of the handiest functions of Tower) are nice and buried inside the internal Red Hat knowledge base.
+Recently we looked at [integrating Ansible Tower with Hashicorp Vault]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %}), but I thought it would be worth taking a look at another popular Secrets management system, [Azure Key Vault](https://azure.microsoft.com/en-gb/services/key-vault/). Whilst the solution isn't exactly the same using Azure Key Vault and Tower was my first time trying to integrate Ansible with a centralised Secrets repository, so let's take a look at how to achieve the integration as it's not very well documented and the specifics (like some of the handiest functions of Tower) are nice and buried inside the internal Red Hat knowledge base.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-3.png)
 
@@ -139,4 +139,4 @@ Using this method we can still store our data within Tower’s own Fernet encryp
 
 ## Looking Up Multiple Secrets
 
-I was eventually asked about the scenario of how to look up multiple _Secrets_ and assign them to the same _Credential_, see the later article [**here**](/ansible-tower-and-azure-keyvault-managing-multiple-secrets/) for an answer on that scenario :).
+I was eventually asked about the scenario of how to look up multiple _Secrets_ and assign them to the same _Credential_, see the later article [**here**]({% post_url 2021-05-17-ansible-tower-and-azure-keyvault-managing-multiple-secrets %}) for an answer on that scenario :).

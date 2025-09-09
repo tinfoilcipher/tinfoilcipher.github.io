@@ -18,13 +18,13 @@ tags:
   - "microservices"
 ---
 
-In a previous article we took a look at [**the very unwieldy integration of the Istio IngressGateway with an AWS Application Load Balancer**](/elastic-kubernetes-service-securely-integrating-aws-alb-with-istio-ingressgateway/), however we didn't look at any _Health Check_ options to monitor the the _ALB_ via it's _Target Group_. A dig around the usual forums suggests that this is confusing a lot of people and it threw me the first time I looked. In post we'll have a quick look at how to get a _Target Group Health Check_ properly configured on our ALB and why it doesn't work by default in the first place.
+In a previous article we took a look at [**the very unwieldy integration of the Istio IngressGateway with an AWS Application Load Balancer**]({% post_url 2021-06-14-elastic-kubernetes-service-securely-integrating-aws-alb-with-istio-ingressgateway %}), however we didn't look at any _Health Check_ options to monitor the the _ALB_ via it's _Target Group_. A dig around the usual forums suggests that this is confusing a lot of people and it threw me the first time I looked. In post we'll have a quick look at how to get a _Target Group Health Check_ properly configured on our ALB and why it doesn't work by default in the first place.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01.png)
 
 ## Unhealthy By Default?
 
-As a quick reminder, our _ALB_s work in this deployment by forwarding requests to a _Target Group_ (which contains all the _EC2 Instances_ making up our _EKS Data Plane)_. Using a combination of the **[aws-load-balancer-controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/)** and normal Kubernetes Ingresses this can all be created and managed dynamically as we covered in the **[previous article](/elastic-kubernetes-service-securely-integrating-aws-alb-with-istio-ingressgateway/)**.
+As a quick reminder, our _ALB_s work in this deployment by forwarding requests to a _Target Group_ (which contains all the _EC2 Instances_ making up our _EKS Data Plane)_. Using a combination of the **[aws-load-balancer-controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/)** and normal Kubernetes Ingresses this can all be created and managed dynamically as we covered in the **[previous article]({% post_url 2021-06-14-elastic-kubernetes-service-securely-integrating-aws-alb-with-istio-ingressgateway %})**.
 
 For a recap, our ALB is deployed using the below _Ingress_ configuration:
 

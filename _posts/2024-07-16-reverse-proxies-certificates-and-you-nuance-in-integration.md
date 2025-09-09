@@ -16,7 +16,7 @@ tags:
   - "security"
 ---
 
-A while ago I wrote an article breaking down how to deploy [_Hashicorp Vault_ using NGINX as a reverse proxy](/hashicorp-vault-reverse-proxy-with-nginx/). It has been a popular article but after it had been up for a couple of years I got some comments that my proposed method wasn't recommended and that using an _HTTP Reverse Proxy_ generally is insecure for a few reasons.
+A while ago I wrote an article breaking down how to deploy [_Hashicorp Vault_ using NGINX as a reverse proxy]({% post_url 2020-06-27-hashicorp-vault-reverse-proxy-with-nginx %}). It has been a popular article but after it had been up for a couple of years I got some comments that my proposed method wasn't recommended and that using an _HTTP Reverse Proxy_ generally is insecure for a few reasons.
 
 I don't like the idea of putting bad information out in to the world, especially information that gets seen so much by people who are obviously trying to do the same thing as me, so I set some time aside to try and investigate if using an HTTP proxy is such a bad idea. In the process I realised that there is really quite a lot of confusion going on and a lot of misconceptions flying around, so I thought I'd talk a bit about it and maybe someone will find that useful.
 

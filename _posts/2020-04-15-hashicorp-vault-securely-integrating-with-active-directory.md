@@ -36,7 +36,7 @@ The key objects in Active Directory that we'll be working with are:
 - **madcaplaughs.co.uk/_MCL/User_Objects/Service_Accounts/SVC_VaultLDAP** - An LDAP Binding Service Account which Vault will use to create a bind with Active Directory
 - **madcaplaughs.co.uk/_MCL/User_Objects/Administrators/Andy Welsh** - My own domain account to be used for authentication with Vault with the samAccountName **welsh**
 
-We'll also be using the **apiaccess** policy created in the [REST API](/hashicorp-vault-tokens-and-the-rest-api/) post.
+We'll also be using the **apiaccess** policy created in the [REST API]({% post_url 2020-04-13-hashicorp-vault-tokens-and-the-rest-api %}) post.
 
 ## Active Directory - Security First
 

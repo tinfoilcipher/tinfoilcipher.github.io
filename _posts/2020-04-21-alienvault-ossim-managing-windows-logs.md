@@ -20,7 +20,7 @@ tags:
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-4.png)
 
-In a [previous post](/alienvault-ossim-building-a-siem-on-a-shoestring/) we looked at building AlienVault OSSIM, but the setup of a SIEM is pretty Spartan without any data sources feeding it. The Operating System integration for AlienVault is surprisingly Windows-centric for a Linux platform, but let's take a look at it.
+In a [previous post]({% post_url 2020-04-20-alienvault-ossim-building-a-siem-on-a-shoestring %}) we looked at building AlienVault OSSIM, but the setup of a SIEM is pretty Spartan without any data sources feeding it. The Operating System integration for AlienVault is surprisingly Windows-centric for a Linux platform, but let's take a look at it.
 
 ## Windows Log Management
 

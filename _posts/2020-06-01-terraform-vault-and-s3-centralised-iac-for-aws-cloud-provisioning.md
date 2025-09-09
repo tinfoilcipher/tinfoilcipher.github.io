@@ -21,7 +21,7 @@ tags:
   - "vault"
 ---
 
-In a [**previous post**](/terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning/) we've looked at how to build Azure infrastructure with Terraform, handle sensitive secrets by storing them within Vault and centrally manage states within Azure Object Storage (confusingly called **[Containers](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)**).
+In a [**previous post**]({% post_url 2020-04-23-terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning %}) we've looked at how to build Azure infrastructure with Terraform, handle sensitive secrets by storing them within Vault and centrally manage states within Azure Object Storage (confusingly called **[Containers](https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction)**).
 
 In this post we'll take a look at the same solution but leverage the same technology within AWS, making use of AWS S3 object storage platform and using Terraform to provision further AWS resources.
 

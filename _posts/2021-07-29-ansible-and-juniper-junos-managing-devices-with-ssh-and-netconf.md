@@ -38,7 +38,7 @@ An excellent breakdown of the execution process from the Juniper documentation i
 
 ## Preparing JUNOS For Use With Ansible
 
-First of all we'll want to get JUNOS configured properly to allow our _Ansible Controller_ to make a secure connection. The first thing we'll want of course is a Service Account on the JUNOS device and **[Public Key Authentication configured](/ssh-and-sftp-public-key-authentication-doing-it-right/)**.
+First of all we'll want to get JUNOS configured properly to allow our _Ansible Controller_ to make a secure connection. The first thing we'll want of course is a Service Account on the JUNOS device and **[Public Key Authentication configured]({% post_url 2020-03-08-ssh-and-sftp-public-key-authentication-doing-it-right %})**.
 
 What we're working with:
 
@@ -172,7 +172,7 @@ ansible_network_os=junipernetworks.junos.junos
 
 The two _"ansible_netconf"_ variables above are essential to establish a connection and are interestingly absent from the majority of the Ansible Documentation, it's possible that I've encountered a bug but I suspect this could be an oversight in the docs.
 
-**In a real deployment, the password should not go in the inventory!** This is just an illustrative example, a better solution here is to use [Ansible Vault as we've looked at previously](/ansible-securing-variable-files-using-ansible-vault/).
+**In a real deployment, the password should not go in the inventory!** This is just an illustrative example, a better solution here is to use [Ansible Vault as we've looked at previously]({% post_url 2021-06-21-ansible-securing-variable-files-using-ansible-vault %}).
 
 ## Ensuring NETCONF Remains Active On The JUNOS Device
 

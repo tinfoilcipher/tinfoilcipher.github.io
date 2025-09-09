@@ -18,7 +18,7 @@ tags:
   - "security"
 ---
 
-Recently I've been presented with the same question from a couple of readers so I'm going to run through it quickly. A while back I looked at [integrating Azure KeyVault with Ansible Tower](/azure-key-vault-integrating-with-ansible-tower/) (a horribly documented scenario in my experience), but I didn't really cover how to call multiple _KeyVault Secrets_ and assign them to a single _Ansible Tower Credential_ for use in a _Playbook_. Please take a look at the previous article [HERE](/azure-key-vault-integrating-with-ansible-tower/) before diving in otherwise this might not be very clear.
+Recently I've been presented with the same question from a couple of readers so I'm going to run through it quickly. A while back I looked at [integrating Azure KeyVault with Ansible Tower]({% post_url 2020-04-02-azure-key-vault-integrating-with-ansible-tower %}) (a horribly documented scenario in my experience), but I didn't really cover how to call multiple _KeyVault Secrets_ and assign them to a single _Ansible Tower Credential_ for use in a _Playbook_. Please take a look at the previous article [HERE]({% post_url 2020-04-02-azure-key-vault-integrating-with-ansible-tower %}) before diving in otherwise this might not be very clear.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-2.png)
 
