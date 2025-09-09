@@ -78,7 +78,7 @@ Combined with our solution of creating a plan file named with the the **git Comm
 
 ## Automating With A Pipeline
 
-I'm not going to get in to how to set up BitBucket Pipelines from the ground up, I've covered that at length in the previous article [here](/infrastructure-as-code-multi-environment-continuous-deployment-with-terraform-and-bitbucket/), and also in more depth previously [here](/bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure/) if you need to see that.
+I'm not going to get in to how to set up BitBucket Pipelines from the ground up, I've covered that at length in the previous article [here]({% post_url 2021-02-16-infrastructure-as-code-multi-environment-continuous-deployment-with-terraform-and-bitbucket %}), and also in more depth previously [here]({% post_url 2020-05-11-bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure %}) if you need to see that.
 
 Now that we know how all of this needs to run, we can represent it in our **bitbucket-pipelines.yml** as:
 

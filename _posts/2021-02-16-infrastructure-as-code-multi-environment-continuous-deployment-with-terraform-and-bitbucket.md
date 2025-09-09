@@ -71,7 +71,7 @@ There's a couple of things we'll need before hand and I'm going to assume they'r
 - A **[Terraform binary](https://www.terraform.io/downloads.html)**, I'll be working with v14.5 (though later is now available), using a fixed version **is** important as states are not backwards compatible and features **do** get deprecated.
 - An **Access Key** and **Secret Access Key** for a suitably permissioned AWS IAM account to allow Terraform to authenticate with AWS.
 - An existing SSH key to use for deployments (we'll just use one over all environments called **tinfoilkey**).
-- **[A properly configured Terraform backend using S3 and DynamoDB](/terraform-centralised-state-locking-with-dynamodb/)**.
+- **[A properly configured Terraform backend using S3 and DynamoDB]({% post_url 2020-09-02-terraform-centralised-state-locking-with-dynamodb %})**.
 - A free **[BitBucket](https://bitbucket.org/)** account with a repository initialised using **git**.
 
 ## The Terraform Code
@@ -121,7 +121,7 @@ data "aws_ami" "tinfoil_ubuntu" {
 }
 ```
 
-Here we're configuring our _backend_ to look at S3 for state management and we'll be plugging in to DynamoDB for state locking [as we've covered previously](/terraform-centralised-state-locking-with-dynamodb/).
+Here we're configuring our _backend_ to look at S3 for state management and we'll be plugging in to DynamoDB for state locking [as we've covered previously]({% post_url 2020-09-02-terraform-centralised-state-locking-with-dynamodb %}).
 
 Next we're configuring our single _provider_ for **AWS**, note that we aren't passing any variables but we will be needing them as we'll see in a second. We **are** however configuring our providers using the **required_providers** configuration, as of Terraform v14 this is now the only supported method to pass _provider_ versions (and versions matter!)
 

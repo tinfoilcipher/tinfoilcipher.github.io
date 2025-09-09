@@ -252,4 +252,4 @@ Now Vault is ready for use, an initial [Cubbyhole](https://www.vaultproject.io/d
 
 This covers the installation and setup of Vault. Next post we'll start looking at deeper use cases once I've had more time to get my hands dirtier :)
 
-**UPDATE**: A later post found [here](/hashicorp-vault-reverse-proxy-with-nginx/) covers a slightly revised approach of the deployment using NGINX as a reverse proxy to remove the need to expose Vault directly and allowing the ability to terminate TLS on NGINX rather than Vault.
+**UPDATE**: A later post found [here]({% post_url 2020-06-27-hashicorp-vault-reverse-proxy-with-nginx %}) covers a slightly revised approach of the deployment using NGINX as a reverse proxy to remove the need to expose Vault directly and allowing the ability to terminate TLS on NGINX rather than Vault.

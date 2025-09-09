@@ -18,7 +18,7 @@ tags:
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-linux.png)
 
-In a [previous post](/alienvault-ossim-building-a-siem-on-a-shoestring/) we looked at building AlienVault OSSIM, but the setup of a SIEM is pretty Spartan without any data sources feeding it. The Operating System integration for AlienVault is surprisingly Windows-centric for a Linux platform, so lets look at the somewhat involved process for gathering logs from Linux servers using AlienVault.
+In a [previous post]({% post_url 2020-04-20-alienvault-ossim-building-a-siem-on-a-shoestring %}) we looked at building AlienVault OSSIM, but the setup of a SIEM is pretty Spartan without any data sources feeding it. The Operating System integration for AlienVault is surprisingly Windows-centric for a Linux platform, so lets look at the somewhat involved process for gathering logs from Linux servers using AlienVault.
 
 ## Some Quick Setup
 

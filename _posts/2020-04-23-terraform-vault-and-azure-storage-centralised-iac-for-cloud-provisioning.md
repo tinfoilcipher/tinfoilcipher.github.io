@@ -20,7 +20,7 @@ tags:
   - "vault"
 ---
 
-In a [previous post](/terraform-vault-and-azure-secure-automated-cloud-deployments/) we've looked at how to build Azure infrastructure with Terraform and handle sensitive secrets by storing them within Vault and looking them up at run time. This however still poses a problem if we're using the default **local** [backend](https://www.terraform.io/docs/backends/index.html) for Terraform; particularly that these secrets will be stored in plain text in the resulting state files and in a local backend they will be absorbed in to source control and visible to any prying eyes. The solution? A remote backend which can be better governed.
+In a [previous post]({% post_url 2020-04-16-terraform-vault-and-azure-secure-automated-cloud-deployments %}) we've looked at how to build Azure infrastructure with Terraform and handle sensitive secrets by storing them within Vault and looking them up at run time. This however still poses a problem if we're using the default **local** [backend](https://www.terraform.io/docs/backends/index.html) for Terraform; particularly that these secrets will be stored in plain text in the resulting state files and in a local backend they will be absorbed in to source control and visible to any prying eyes. The solution? A remote backend which can be better governed.
 
 The sample code for the this post is hosted in my GitHub **[here](https://github.com/tinfoilcipher/blogexamples/tree/main/terraform-remote-backend-vault-example)**.
 

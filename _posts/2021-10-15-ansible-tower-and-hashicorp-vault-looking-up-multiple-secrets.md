@@ -16,9 +16,9 @@ tags:
   - "vault"
 ---
 
-A question that I've been approached about several times recently is how to lookup multiple _Hashicorp Vault Secrets_ and assign them to a single _Ansible Tower Credential_ for use in a _Playbook_. A while ago I looked at [the process of integrating Hashicorp Vault with Ansible Tower](/hashicorp-vault-integrating-with-ansible-tower/) (a less that perfect process in the first place) but this has repeatedly led to the same question about multiple _Secrets_, so in this post we'll dive in to that scenario as well as mapping secrets from multiple _Vault Secret Engines_.
+A question that I've been approached about several times recently is how to lookup multiple _Hashicorp Vault Secrets_ and assign them to a single _Ansible Tower Credential_ for use in a _Playbook_. A while ago I looked at [the process of integrating Hashicorp Vault with Ansible Tower]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %}) (a less that perfect process in the first place) but this has repeatedly led to the same question about multiple _Secrets_, so in this post we'll dive in to that scenario as well as mapping secrets from multiple _Vault Secret Engines_.
 
-Please take a look at the previous article [HERE](/hashicorp-vault-integrating-with-ansible-tower/) before diving in otherwise this might not be very clear.
+Please take a look at the previous article [HERE]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %}) before diving in otherwise this might not be very clear.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-2.png)
 
@@ -82,7 +82,7 @@ extra_vars:
 
 ## Looking Up Multiple Secrets in Ansible Tower
 
-As with our [previous example](/hashicorp-vault-integrating-with-ansible-tower/) we can now load a new _Credential_ type in to Tower, however now we have the option to load multiple _secrets_ in to a single _Credential_:
+As with our [previous example]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %}) we can now load a new _Credential_ type in to Tower, however now we have the option to load multiple _secrets_ in to a single _Credential_:
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/03-1-1024x456.png)
 

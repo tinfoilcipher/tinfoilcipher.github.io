@@ -19,7 +19,7 @@ tags:
   - "linux"
 ---
 
-In the last post we looked at how to automate the creation of [GKE Kubernetes clusters in GCP](/creating-scalable-kubernetes-clusters-in-gcp-with-terraform/), however the deployment of workloads to these clusters was still something of a manual process. Enter [Helm](https://helm.sh); the a package manager for Kubernetes.
+In the last post we looked at how to automate the creation of [GKE Kubernetes clusters in GCP]({% post_url 2020-06-08-creating-scalable-kubernetes-clusters-in-gcp-with-terraform %}), however the deployment of workloads to these clusters was still something of a manual process. Enter [Helm](https://helm.sh); the a package manager for Kubernetes.
 
 If this is your first time hearing those words it can be pretty confusing, typically when we think of package management we think of application packages or application dependencies being installed. Helm's "packages" on the other hand are called **Charts**. Simply put, these are zipped up bundles of templated Kubernetes manifests (the declarative YAML files used for the various Kubernetes components) which are applied. The templating engine provided by Helm is powerful and allows for the generation of complex and flexible configurations from opinionated input variables.
 
@@ -29,7 +29,7 @@ If you've never encountered Helm before, I recommend the IBM Cloud video [here](
 
 ## Preamble
 
-From the [previous article](/creating-scalable-kubernetes-clusters-in-gcp-with-terraform/), we have our Kubernetes Cluster in place, we'll be deploying to and from the following:
+From the [previous article]({% post_url 2020-06-08-creating-scalable-kubernetes-clusters-in-gcp-with-terraform %}), we have our Kubernetes Cluster in place, we'll be deploying to and from the following:
 
 - Our _Cluster_ in question is going to be **tinfoilcluster01** running on Google Kubernetes Engine (GKE), under project **tinfoilproject** within zone **europe-west2-a**
 

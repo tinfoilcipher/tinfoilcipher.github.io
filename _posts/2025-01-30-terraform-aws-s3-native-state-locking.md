@@ -13,7 +13,7 @@ tags:
   - "terraform"
 ---
 
-A long while ago I wrote about [how to configure centralised State Locking for Terraform using Dynamo DB](/terraform-centralised-state-locking-with-dynamodb/). This configuration has become battle tested and fairly low cost solution for anyone using Terraform in AWS and scales well with pretty advanced configurations but it isn't without it's drawbacks. _DynamoDB_ can be a bit confusing to navigate if you're unfamiliar with it and releasing state locks can be a similarly scary experience so it isn't uncommon to find a Terraform implementation where _state locking_ has just been neglected (which you really shouldn't do).
+A long while ago I wrote about [how to configure centralised State Locking for Terraform using Dynamo DB]({% post_url 2020-09-02-terraform-centralised-state-locking-with-dynamodb %}). This configuration has become battle tested and fairly low cost solution for anyone using Terraform in AWS and scales well with pretty advanced configurations but it isn't without it's drawbacks. _DynamoDB_ can be a bit confusing to navigate if you're unfamiliar with it and releasing state locks can be a similarly scary experience so it isn't uncommon to find a Terraform implementation where _state locking_ has just been neglected (which you really shouldn't do).
 
 Since the release of Terraform Version 1.10 experimental support for _state locking_ natively inside _S3_ has been quietly added, with the threat that _DynamoDB_ support is going to be dropped at some point in the future. So let's have a quick look at how it works.
 

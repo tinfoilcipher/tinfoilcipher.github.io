@@ -35,7 +35,7 @@ Hashicorp's suggested method for this conundrum is documented in detail [**here*
 
 - Installing a Vault agent in to each Kubernetes cluster
 - Creating a Service Account and configMap on each cluster for Vault
-- Configuring Authentication between Vault and each Cluster (based on the allowed authentication method for your implementation in order to request a [Vault API Token](/hashicorp-vault-tokens-and-the-rest-api/))
+- Configuring Authentication between Vault and each Cluster (based on the allowed authentication method for your implementation in order to request a [Vault API Token]({% post_url 2020-04-13-hashicorp-vault-tokens-and-the-rest-api %}))
 - Configuring ACLs and Policies in Vault to allow the Vault agent to access the relevant _Secrets Engines_
 - Adding Vault-specific annotations to your services/pods which need to access the relevant Secrets
 
@@ -53,7 +53,7 @@ So we still have the problem of where are we going to store our secrets, we can'
 
 A couple of pre-requisites:
 
-- We have an existing Vault instance, running behind a TLS reverse proxy as broken down [here](/hashicorp-vault-secure-installation-and-setup/) and [here](/hashicorp-vault-reverse-proxy-with-nginx/), running at **https://mc-vault.madcaplaughs.co.uk**
+- We have an existing Vault instance, running behind a TLS reverse proxy as broken down [here]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) and [here]({% post_url 2020-06-27-hashicorp-vault-reverse-proxy-with-nginx %}), running at **https://mc-vault.madcaplaughs.co.uk**
 - This Vault has a single _kv_ _Secrets Engine_ containing two secrets, each containing different numbers of values
 - We're going to be creating secrets in two different namespaces which **already exist**:
 

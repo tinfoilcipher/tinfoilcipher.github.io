@@ -26,11 +26,11 @@ Example code for this post can be found in my GitHub [**here**](https://github.c
 
 ## Some Prerequisites and Gotchas
 
-We're writing secrets in to a _kv_ Secrets Engine over TLS to an existing Vault deployment located at **https://mc-vault.madcaplaughs.co.uk** running over TCP port 8200 (see [here](/hashicorp-vault-secure-installation-and-setup/) for setting up a secure Vault deployment). The _kv_ Secrets Engine is named **kvstore** and is running as a **Version 1** vault, this is intentional as the Terraform Resource _vault\_generic\_secret_ appears to be restricted to using Version 1 Secrets Engines (if this is not the case and I've just missed something I'd love to know)! We're going to write our Key Value Pairs directly in to an existing _Secret_ named **project _secrets**.
+We're writing secrets in to a _kv_ Secrets Engine over TLS to an existing Vault deployment located at **https://mc-vault.madcaplaughs.co.uk** running over TCP port 8200 (see [here]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) for setting up a secure Vault deployment). The _kv_ Secrets Engine is named **kvstore** and is running as a **Version 1** vault, this is intentional as the Terraform Resource _vault\_generic\_secret_ appears to be restricted to using Version 1 Secrets Engines (if this is not the case and I've just missed something I'd love to know)! We're going to write our Key Value Pairs directly in to an existing _Secret_ named **project _secrets**.
 
 We're not going to be saving an API token anywhere in the Terraform files as this would be a major security no-no, so we'll leave this to be prompted at run time, however if this was going to be executed in a pipeline for full automation we could just as easily do this using an _Environment Variable_.
 
-Finally, this is an example only, due to the way that Terraform stores secrets in **State Files** we want to always ensure that we're saving the states to a secure remote backend (see [here](/terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning/) for notes on setting up a secure remote backend), this example is not using a remote backend and that consideration should be made in the real world.
+Finally, this is an example only, due to the way that Terraform stores secrets in **State Files** we want to always ensure that we're saving the states to a secure remote backend (see [here]({% post_url 2020-04-23-terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning %}) for notes on setting up a secure remote backend), this example is not using a remote backend and that consideration should be made in the real world.
 
 ## Provider and Variables
 

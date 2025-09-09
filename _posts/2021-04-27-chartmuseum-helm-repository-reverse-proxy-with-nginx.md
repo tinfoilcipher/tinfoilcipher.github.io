@@ -16,7 +16,7 @@ tags:
   - "nginx"
 ---
 
-In the **[previous post we looked at how to build Chartmuseum on Ubuntu Linux with an S3 backend](/creating-a-private-helm-repo-with-chartmuseum-using-aws-s3/)**, however out of the box this system presents a number of problems; specifically it isn't TLS encrypted and the service runs on an **[unprivileged TCP port](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html)**. I could see no guides suggesting how to do this, so lets take a look at how to solve this problem by performing by proxying our connections through an NGINX reverse proxy with TLS termination.
+In the **[previous post we looked at how to build Chartmuseum on Ubuntu Linux with an S3 backend]({% post_url 2021-04-26-creating-a-private-helm-repo-with-chartmuseum-using-aws-s3 %})**, however out of the box this system presents a number of problems; specifically it isn't TLS encrypted and the service runs on an **[unprivileged TCP port](https://www.w3.org/Daemon/User/Installation/PrivilegedPorts.html)**. I could see no guides suggesting how to do this, so lets take a look at how to solve this problem by performing by proxying our connections through an NGINX reverse proxy with TLS termination.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-4.png)
 
@@ -28,7 +28,7 @@ Since we ultimatley want to serve out service over HTTPS using TCP port 443 we'l
 
 ## Our Goal and Prerequstes
 
-We'll be using the existing Chartmuseum deployment **[created in the previous post](/creating-a-private-helm-repo-with-chartmuseum-using-aws-s3/)**, with the same _Service Account_ configuration.
+We'll be using the existing Chartmuseum deployment **[created in the previous post]({% post_url 2021-04-26-creating-a-private-helm-repo-with-chartmuseum-using-aws-s3 %})**, with the same _Service Account_ configuration.
 
 **Technically**, we could perform TLS termination on the Chartmuseum instance and offer out the deployment at TCP port 8080, however if you have strict firewall requirements you may not want to open yet another port, and fewer ports is always nicer (as well as conforming to proper standards). So let’s look at how to use a reverse proxy to offer out Chartmuseum correctly over TCP port 443 using NGINX.
 
@@ -47,7 +47,7 @@ We’ll need to get NGINX installed and configured, the only installation needed
 sudo apt-get install nginx
 ```
 
-Ahead of time I've already created a TLS _Certificate_ and _Private Key_ and placed them in **/etc/ssl/certs** and **/etc/ssl/private** respectively. These have been created from my **[private certificate authority](/bind-dns-and-openssl-certificate-authority/)** but **[letsencrypt](https://letsencrypt.org/)** will do you just fine if you don't have one.
+Ahead of time I've already created a TLS _Certificate_ and _Private Key_ and placed them in **/etc/ssl/certs** and **/etc/ssl/private** respectively. These have been created from my **[private certificate authority]({% post_url 2019-11-15-bind-dns-and-openssl-certificate-authority %})** but **[letsencrypt](https://letsencrypt.org/)** will do you just fine if you don't have one.
 
 Now we can create our NGINX configuration:
 

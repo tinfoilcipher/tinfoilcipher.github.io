@@ -19,7 +19,7 @@ tags:
   - "terraform"
 ---
 
-Last year I wrote about [**automating Elastic Kubernetes Service role configuration**](/elastic-kubernetes-service-automating-secure-role-configuration-with-terraform-and-vault/) (direct modification of the **aws-auth** _ConfigMap_) using Terraform, and a somewhat clunky method of injecting ARN data by looking it up from a secret management service (in this case [**Hashicorp Vault**](https://www.vaultproject.io/)).  
+Last year I wrote about [**automating Elastic Kubernetes Service role configuration**]({% post_url 2020-07-08-elastic-kubernetes-service-automating-secure-role-configuration-with-terraform-and-vault %}) (direct modification of the **aws-auth** _ConfigMap_) using Terraform, and a somewhat clunky method of injecting ARN data by looking it up from a secret management service (in this case [**Hashicorp Vault**](https://www.vaultproject.io/)).  
   
 Whilst the solution works well it comes with a serious built in issue when we want to provision a new deployment from scratch, namely the need to _import_ the _configMap_ before it can be edited which isn't very helpful for an idempotent deployment. If you're here you've probably run in to a lovely error along the lines of '**configmaps "aws-auth" already exists**' when trying to configure your cluster. This is a very quick post to take a deeper look at the cause and see how this issue can be overcome.
 
@@ -27,7 +27,7 @@ Whilst the solution works well it comes with a serious built in issue when we wa
 
 ## If It Works...What's The Problem?
 
-So first of all, technically the solution we presented in the [earlier post](/elastic-kubernetes-service-automating-secure-role-configuration-with-terraform-and-vault/) does work, but it leaves us with a very fussy, very manual step. The **aws-auth** _configMap_ provides a YAML mapping of which AWS _IAM_ roles and users can authenticate and interact with our Kubernetes cluster running in EKS. As this is a system managed object however we cannot simply start writing to it when it already exists, Terraform is only able to control the objects is creates or existing objects imported in to it's _state_.
+So first of all, technically the solution we presented in the [earlier post]({% post_url 2020-07-08-elastic-kubernetes-service-automating-secure-role-configuration-with-terraform-and-vault %}) does work, but it leaves us with a very fussy, very manual step. The **aws-auth** _configMap_ provides a YAML mapping of which AWS _IAM_ roles and users can authenticate and interact with our Kubernetes cluster running in EKS. As this is a system managed object however we cannot simply start writing to it when it already exists, Terraform is only able to control the objects is creates or existing objects imported in to it's _state_.
 
 Whilst _importing_ is a valuable function of Terraform we cannot really rely on it in an automated provisioning pipeline, especially as it's a one off function for any environment, we could perform it manually but our goal in the long term should really be to try and remove the human element from any provisioning. Working with this in mind we should be trying to avoid _imports_.
 
@@ -56,7 +56,7 @@ In my experience, these conditions are rare but can occur, the documentation is 
 
 ## Building In Dependencies
 
-So let's take a look at how we can force some dependencies to be built in. We'll be building a simple EKS cluster using the configurations from a previous article [here](/creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform/) (for the sake of not re-writing all the same code again).
+So let's take a look at how we can force some dependencies to be built in. We'll be building a simple EKS cluster using the configurations from a previous article [here]({% post_url 2020-07-06-creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform %}) (for the sake of not re-writing all the same code again).
 
 Below is a revised version of our providers.tf in which we've added some hard dependencies to ensure that we won't try and look up the authentication _Data Sources_ until the EKS Cluster has already been provisioned:
 

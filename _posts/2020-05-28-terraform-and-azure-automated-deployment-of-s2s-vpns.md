@@ -17,7 +17,7 @@ tags:
 
 The creation of an Azure Site to Site VPN is (even by Software Defined Networking standards)...involved. This isn't a problem unique to Azure and isn't aided by the desire by vendors to call all of their components something unusual rather than the terminology that already exists. Setup is a **very** manual and time consuming process, however Terraform can completely automate and codify the process.
 
-Example code for this post can be found in my GitHub at [here](/terraform-and-azure-automated-deployment-of-s2s-vpns/).
+Example code for this post can be found in my GitHub at [here]({% post_url 2020-05-28-terraform-and-azure-automated-deployment-of-s2s-vpns %}).
 
 <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-8.png" class="scaled-img-75">
 

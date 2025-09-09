@@ -19,7 +19,7 @@ tags:
   - "unifi"
 ---
 
-A little while ago I migrated my **[UniFi Controller to Kubernetes](/unifi-on-kubernetes-deploying-the-controller/)**, part of that process involved migrating my **[WPA2 Enterprise WiFi](/wpa-eap-tls-wifi/)** network in to the cluster. It's quite an involved process and not one I've seen anyone try to do, so this post is going to look at how you can do that integration...as well as some of the reasons you might not want to do it in the real world! This is probably the most niche thing I've ever written and I struggle to imagine that anyone other than me will ever want to do such a thing...but hopefully someone else will find this useful one day :)
+A little while ago I migrated my **[UniFi Controller to Kubernetes]({% post_url 2023-08-10-unifi-on-kubernetes-deploying-the-controller %})**, part of that process involved migrating my **[WPA2 Enterprise WiFi]({% post_url 2019-11-15-wpa-eap-tls-wifi %})** network in to the cluster. It's quite an involved process and not one I've seen anyone try to do, so this post is going to look at how you can do that integration...as well as some of the reasons you might not want to do it in the real world! This is probably the most niche thing I've ever written and I struggle to imagine that anyone other than me will ever want to do such a thing...but hopefully someone else will find this useful one day :)
 
 The configs for this post can be found in GitHub [**here**](https://github.com/tinfoilcipher/blogexamples/tree/main/wpa-tls-k8s).
 
@@ -31,7 +31,7 @@ This project has 4 main requirements:
 
 2. A RADIUS server which can function as part of a PKI with our Certificate Authority.
 
-3. A **LoadBalancer** controller (I will also be exposing our RADIUS server via an external **LoadBalancer**, for reasons we'll come back to), we'll be using **MetalLB**, I have **[already covered the setup of MetalLB here](/building-a-bare-metal-kubernetes-lab-part-2/)**. Any LoadBalancer is fine.
+3. A **LoadBalancer** controller (I will also be exposing our RADIUS server via an external **LoadBalancer**, for reasons we'll come back to), we'll be using **MetalLB**, I have **[already covered the setup of MetalLB here]({% post_url 2023-03-17-building-a-bare-metal-kubernetes-lab-part-2 %})**. Any LoadBalancer is fine.
 
 4. The UniFi Controller.
 

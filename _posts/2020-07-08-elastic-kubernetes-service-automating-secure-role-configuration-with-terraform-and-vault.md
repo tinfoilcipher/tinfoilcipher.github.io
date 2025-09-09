@@ -22,15 +22,15 @@ tags:
   - "vault"
 ---
 
-UPDATED 11/2020: **[Have a look at a different method for this configuration better suited to CI/CD.](/terraform-and-eks-preventing-conflicts-with-aws-auth-configmap/)**
+UPDATED 11/2020: **[Have a look at a different method for this configuration better suited to CI/CD.]({% post_url 2021-06-07-terraform-and-eks-preventing-conflicts-with-aws-auth-configmap %})**
 
-In a previous post [**we looked at how to use Terraform provision and authenticate with Clusters using AWS' Elastic Kubernetes Service (EKS)**](/creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform/) using the somewhat unique authentication method of it's webhook token method leveraging [**aws-iam-authenticator**](https://github.com/kubernetes-sigs/aws-iam-authenticator). Once we get past that point however we still have another permission hurdle to overcome, specifically how we handle _Users_ and _Roles_ as defined within the Cluster, and just like with all the EKS permissions we've encountered so far...these ones have another bunch of oddities. Let's jump in to how we can not only get the provisioning automated, but keep our ARNs secret by leveraging [Hashicorp Vault](https://www.vaultproject.io/).
+In a previous post [**we looked at how to use Terraform provision and authenticate with Clusters using AWS' Elastic Kubernetes Service (EKS)**]({% post_url 2020-07-06-creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform %}) using the somewhat unique authentication method of it's webhook token method leveraging [**aws-iam-authenticator**](https://github.com/kubernetes-sigs/aws-iam-authenticator). Once we get past that point however we still have another permission hurdle to overcome, specifically how we handle _Users_ and _Roles_ as defined within the Cluster, and just like with all the EKS permissions we've encountered so far...these ones have another bunch of oddities. Let's jump in to how we can not only get the provisioning automated, but keep our ARNs secret by leveraging [Hashicorp Vault](https://www.vaultproject.io/).
 
 <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-3.png" class="scaled-img-75">
 
 ## What, More Permissions?
 
-Following the [previous post](/creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform/) our Cluster is created and we can interact with it from an administrative standpoint without issue, so what's going on.
+Following the [previous post]({% post_url 2020-07-06-creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform %}) our Cluster is created and we can interact with it from an administrative standpoint without issue, so what's going on.
 
 When we create the Cluster using our Terraform Service Account, this account is implicitly defined as the _Creator_ of the Cluster, and as such has full admin permissions, however if we try and interact with the Cluster using **kubectl** using an account which has matching permissions in AWS IAM, we will be denied access, so what's going on?
 
@@ -108,7 +108,7 @@ Clearly, we don't want to go down this route as this data could very well be con
 
 ## ARNs Are Secret - Let's Make Sure We're Secure
 
-In order to reliably template this data at run time, we can ingest it as an _EOT_ operation using a YAML filter, whilst this isn't as nice to read, it does allow us to use the native **Vault** _Provider_ and allow us to lookup secrets offered by Vault directly in to Terraform (I've covered the how to's on this topic in much greater detail [here](/terraform-vault-and-azure-secure-automated-cloud-deployments/) so I won't get bogged down in the details).
+In order to reliably template this data at run time, we can ingest it as an _EOT_ operation using a YAML filter, whilst this isn't as nice to read, it does allow us to use the native **Vault** _Provider_ and allow us to lookup secrets offered by Vault directly in to Terraform (I've covered the how to's on this topic in much greater detail [here]({% post_url 2020-04-16-terraform-vault-and-azure-secure-automated-cloud-deployments %}) so I won't get bogged down in the details).
 
 In **Vault** we have a _kv_ type _Secrets Engine_ named **kv** and a Secret in there name **aws_secrets**, this secret contains 3 Key Value Pairs named **nodegroup_arn**, **user_arn** and **username**, not great for production use but perfect for our example:
 
@@ -153,7 +153,7 @@ YAML
 A few things to be aware of here:
 
 - The _configMap_ is **DECLARATIVE**, so you still have to define your system values that were there when the cluster was created, removing this from the file is really going to mess up the configuration and stop most functions of the cluster from working!
-- **Lines 2-4**: We're using the **vault_generic_secret** _Data Source_ to lookup our **aws_secrets** Secret via the Vault API (this required the Vault _provider_ to be pre-configured as detailed [here](/terraform-vault-and-azure-secure-automated-cloud-deployments/)).
+- **Lines 2-4**: We're using the **vault_generic_secret** _Data Source_ to lookup our **aws_secrets** Secret via the Vault API (this required the Vault _provider_ to be pre-configured as detailed [here]({% post_url 2020-04-16-terraform-vault-and-azure-secure-automated-cloud-deployments %})).
 - **Lines 14 and 21**: The **<<YAML** function is used to directly inject YAML via terminal input to the **mapRoles** and **mapUsers** keys rather than using a flat file.
 - **Lines 20 and 26** the **YAML** statement ends the **<<YAML** input.
 - **Lines 18, 22 and 23**: The **nodegroup_arn**, **user_arn** and **username** child values are looked up via the **aws_secrets** Secrets we looked up on **Line 3**, preventing us from needing to expose them in the configuration.

@@ -15,9 +15,9 @@ tags:
   - "terraform"
 ---
 
-Previously we looked at [using _Localstack_ to emulate AWS services and speed up the feedback loop during development](/emulating-aws-services-using-localstack/). In this short post we're going to look at how to integrate this tool with _Terraform_ to perform some simple testing that can emulate our builds for free and give us some confidence in our code before running it.
+Previously we looked at [using _Localstack_ to emulate AWS services and speed up the feedback loop during development]({% post_url 2022-02-17-emulating-aws-services-using-localstack %}). In this short post we're going to look at how to integrate this tool with _Terraform_ to perform some simple testing that can emulate our builds for free and give us some confidence in our code before running it.
 
-This post will assume that you have _Localstack_ installed and running. If not, see the previous [previous post](/emulating-aws-services-using-localstack/) for advice on doing so!
+This post will assume that you have _Localstack_ installed and running. If not, see the previous [previous post]({% post_url 2022-02-17-emulating-aws-services-using-localstack %}) for advice on doing so!
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01.png)
 
@@ -136,4 +136,4 @@ An important consideration to be aware of is that _Terraform's_ management of re
 
 As the _Terraform_ _Backend Configuration_ will be observed as usual this must be considered in any workflow you have (for example if you're running _Localstack_ in an automated testing pipeline) it may be much more practical for you to use a separate _State File_ for the purposes of testing (depending on your scenarios or configure a separate _backend_ for this case).
 
-For more information of Terraform Backend configurations, take a look at some previous articles [here](/terraform-centralised-state-locking-with-dynamodb/) and [here](/terraform-vault-and-s3-centralised-iac-for-aws-cloud-provisioning/) as well as the extensive [Terraform Documentation.](https://www.terraform.io/language/settings/backends/configuration)
+For more information of Terraform Backend configurations, take a look at some previous articles [here]({% post_url 2020-09-02-terraform-centralised-state-locking-with-dynamodb %}) and [here]({% post_url 2020-06-01-terraform-vault-and-s3-centralised-iac-for-aws-cloud-provisioning %}) as well as the extensive [Terraform Documentation.](https://www.terraform.io/language/settings/backends/configuration)

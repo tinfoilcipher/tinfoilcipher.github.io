@@ -22,7 +22,7 @@ tags:
   - "security"
 ---
 
-In previous posts we've looked at [**how to look up Secrets from Hashicorp Vault using Ansible**](/ansible-looking-up-secrets-from-hashicorp-vault/) and [Ansible Tower](/hashicorp-vault-integrating-with-ansible-tower/). We've also taken a look at how to integrate [Azure Key Vault with Ansible Tower](/azure-key-vault-integrating-with-ansible-tower/), however I've never gotten round to taking a look at how to integrate Ansible itself with Azure Key Vault (without the use of Tower).
+In previous posts we've looked at [**how to look up Secrets from Hashicorp Vault using Ansible**]({% post_url 2020-08-24-ansible-looking-up-secrets-from-hashicorp-vault %}) and [Ansible Tower]({% post_url 2020-04-14-hashicorp-vault-integrating-with-ansible-tower %}). We've also taken a look at how to integrate [Azure Key Vault with Ansible Tower]({% post_url 2020-04-02-azure-key-vault-integrating-with-ansible-tower %}), however I've never gotten round to taking a look at how to integrate Ansible itself with Azure Key Vault (without the use of Tower).
 
 Whilst I've largley moved away from using Azure Key Vault in favour of Hashicorp Vault I did find myself using it for some tinkering recently so in this post we'll be looking at how to do the integration, luckily it's a pretty painless process.
 

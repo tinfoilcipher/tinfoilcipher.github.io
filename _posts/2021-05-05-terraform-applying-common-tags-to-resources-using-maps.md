@@ -95,7 +95,7 @@ If we look at the AWS Console we can see that our tags have applied correctly up
 
 ## Remote States and Locals
 
-This configuration is fine if we're working with simple resources, but it won't go too far in enterprise deployments when we need to work with proper [remote state lookups](/terraform-looking-up-previous-configuration-data-with-remote-states/). For these scenarios we should work without defining our data as variable and configure the entire map within **[locals](https://www.terraform.io/docs/language/values/locals.html)**.
+This configuration is fine if we're working with simple resources, but it won't go too far in enterprise deployments when we need to work with proper [remote state lookups]({% post_url 2020-07-10-terraform-looking-up-previous-configuration-data-with-remote-states %}). For these scenarios we should work without defining our data as variable and configure the entire map within **[locals](https://www.terraform.io/docs/language/values/locals.html)**.
 
 Lets take a look at an example of this, but work with some extra data looked up form _variables_:
 

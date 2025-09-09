@@ -21,13 +21,13 @@ tags:
   - "terraform"
 ---
 
-In a previous post we looked at the basics of [working with multiple instances of Terraform _providers_](/terraform-tricks-working-with-multiple-provider-instances/), however as usual, Kubernetes presents some slight variations on this theme due to it's varied options for authentication. In this post we're looking at how to handle authentication for multiple Kubernetes clusters in Terraform.
+In a previous post we looked at the basics of [working with multiple instances of Terraform _providers_]({% post_url 2020-10-23-terraform-tricks-working-with-multiple-provider-instances %}), however as usual, Kubernetes presents some slight variations on this theme due to it's varied options for authentication. In this post we're looking at how to handle authentication for multiple Kubernetes clusters in Terraform.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-4.png)
 
 ## Provider Aliases
 
-Underpinning all concepts of working with multiple instances of a provider is the concept of working with _provider aliases_. We've looked at _aliases_ in a bit more depth [here](/terraform-tricks-working-with-multiple-provider-instances/) In a nutshell, _aliases_ allow us to run multiple instances of the same _provider_ and reference them against _resources_ that consume that _provider_.
+Underpinning all concepts of working with multiple instances of a provider is the concept of working with _provider aliases_. We've looked at _aliases_ in a bit more depth [here]({% post_url 2020-10-23-terraform-tricks-working-with-multiple-provider-instances %}) In a nutshell, _aliases_ allow us to run multiple instances of the same _provider_ and reference them against _resources_ that consume that _provider_.
 
 Referencing an alias is best achieved by declaring the cluster name in the _provider_ and referencing it against the _resource_ as **kubernetes**.**<cluster_name>**, I.E. in the below example for creating a Kubernetes _namespace_:
 
@@ -106,7 +106,7 @@ provider "kubernetes" {
 
 ## AWS - Elastic Kubernetes Service
 
-EKS is particularly fussy in it's authentication **[as we've discussed previously](/creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform/)**, only one method is supported for authentication using a combination of **Cluster CA Certificate** and **Token**. The below example shows two _provider_ instances connecting to EKS clusters:
+EKS is particularly fussy in it's authentication **[as we've discussed previously]({% post_url 2020-07-06-creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform %})**, only one method is supported for authentication using a combination of **Cluster CA Certificate** and **Token**. The below example shows two _provider_ instances connecting to EKS clusters:
 
 ```terraform
 ##############################

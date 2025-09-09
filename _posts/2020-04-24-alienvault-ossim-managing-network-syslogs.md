@@ -22,7 +22,7 @@ tags:
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-6.png)
 
-In previous posts I've looked at the [setup of AlienVault OSSIM](/alienvault-ossim-building-a-siem-on-a-shoestring/) and managing logs from both [Windows](/alienvault-ossim-managing-windows-logs/) and [Linux](/alienvault-ossim-managing-linux-logs/) Operating Systems. However as any admin knows dealing with servers is only half the battle when it comes to logs, network devices are arguably the most important part. In this post we'll be looking at log management for **Juniper JUNOS**, **Cisco IOS** and **VMware EXSi** devices in particular, all of which share a common and widely used logging standard.
+In previous posts I've looked at the [setup of AlienVault OSSIM]({% post_url 2020-04-20-alienvault-ossim-building-a-siem-on-a-shoestring %}) and managing logs from both [Windows]({% post_url 2020-04-21-alienvault-ossim-managing-windows-logs %}) and [Linux]({% post_url 2020-04-22-alienvault-ossim-managing-linux-logs %}) Operating Systems. However as any admin knows dealing with servers is only half the battle when it comes to logs, network devices are arguably the most important part. In this post we'll be looking at log management for **Juniper JUNOS**, **Cisco IOS** and **VMware EXSi** devices in particular, all of which share a common and widely used logging standard.
 
 ## Different Logs, Different Method
 

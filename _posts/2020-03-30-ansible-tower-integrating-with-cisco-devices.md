@@ -15,7 +15,7 @@ tags:
   - "netops"
 ---
 
-Following my look at integrating [Ansible Tower with Windows](/ansible-tower-and-windows-authentication/), I thought I'd take a look at another common requirement that needs some slight tweaking (though not nearly to the extent of Windows), networking devices, specifically Cisco devices running IOS, ASA and NX-OS platforms.
+Following my look at integrating [Ansible Tower with Windows]({% post_url 2020-03-29-ansible-tower-and-windows-authentication %}), I thought I'd take a look at another common requirement that needs some slight tweaking (though not nearly to the extent of Windows), networking devices, specifically Cisco devices running IOS, ASA and NX-OS platforms.
 
 <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/1.jpeg" class="scaled-img-75">
 

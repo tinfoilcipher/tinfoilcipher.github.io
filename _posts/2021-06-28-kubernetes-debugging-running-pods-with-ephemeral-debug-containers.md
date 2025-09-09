@@ -16,7 +16,7 @@ tags:
   - "networking"
 ---
 
-At the end of last year I wrote about some basic methods for [debugging networking issues inside a Kubernetes Cluster](/kubernetes-tips-basic-network-debugging/). In that article we very briefly mentioned a then-_alpha_ feature (with a complicated sounding name) called **[Ephemeral Debug Containers](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)** first introduced back in Kubernetes v1.16. 
+At the end of last year I wrote about some basic methods for [debugging networking issues inside a Kubernetes Cluster]({% post_url 2020-11-30-kubernetes-tips-basic-network-debugging %}). In that article we very briefly mentioned a then-_alpha_ feature (with a complicated sounding name) called **[Ephemeral Debug Containers](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-running-pod/#ephemeral-container)** first introduced back in Kubernetes v1.16. 
   
 This looks to be the real future of debugging in Kubernetes and as of v1.20 it's finally in beta. This great feature really strengthens a lot of the issues we have with out current toolset for debugging, but on managed platforms which are really my wheelhouse it's still a mysteriously lacking feature. None the less, let's look at how we can use it in development environments.
 
@@ -100,7 +100,7 @@ This drops us in to an interactive shell where we can perform all of our usual t
 
 ## Cloning A Running Pod and Add a Debug Container
 
-In the **[last post on debugging Kubernetes](/kubernetes-tips-basic-network-debugging/)** we looked at a very sketchy method of debugging by using _exec_ to enter a running container and then installing packages in to it on the fly. This is a very worrying proposition and could wreak all kinds of havoc. _Debug_ offer us a better solution in the form of cloning a running _Pod_ and including a _Debug_ container running inside the new _Pod_.
+In the **[last post on debugging Kubernetes]({% post_url 2020-11-30-kubernetes-tips-basic-network-debugging %})** we looked at a very sketchy method of debugging by using _exec_ to enter a running container and then installing packages in to it on the fly. This is a very worrying proposition and could wreak all kinds of havoc. _Debug_ offer us a better solution in the form of cloning a running _Pod_ and including a _Debug_ container running inside the new _Pod_.
 
 Let's take a look at this in practice, we'll work again with our **prometheus-kube-state-metrics** _Pod_:
 

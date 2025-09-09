@@ -21,7 +21,7 @@ tags:
   - "vault"
 ---
 
-In my recent posts I've covered the [hardened setup of Vault](/hashicorp-vault-secure-installation-and-setup/) and covered the basics of [using the REST API](/hashicorp-vault-tokens-and-the-rest-api/). As we've seen so far, Vault is primarily designed for programmatic interactions from external systems via the API, so lets take a look a favourite of mine; _Ansible Tower_, which is a prime candidate as a third party system which often has a requirement to call secrets from external systems.
+In my recent posts I've covered the [hardened setup of Vault]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) and covered the basics of [using the REST API]({% post_url 2020-04-13-hashicorp-vault-tokens-and-the-rest-api %}). As we've seen so far, Vault is primarily designed for programmatic interactions from external systems via the API, so lets take a look a favourite of mine; _Ansible Tower_, which is a prime candidate as a third party system which often has a requirement to call secrets from external systems.
 
 ![](/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01-1.png)
 
@@ -136,4 +136,4 @@ Now that a Credential has been passed in to Tower, it can be assigned to any Tem
 
 The variable being called on line 11 can be read (provided that the Credential **secret1-password** has been assigned to the Template calling this _Playbook_) as it will be passed from the **Injector Configuration** of the customer Credential Type we created earlier.
 
-For a look at how to expand on this design to use multiple _Secrets_ take a look at the follow up post [here](/ansible-tower-and-hashicorp-vault-looking-up-multiple-secrets/) which covers that scenario.
+For a look at how to expand on this design to use multiple _Secrets_ take a look at the follow up post [here]({% post_url 2021-10-15-ansible-tower-and-hashicorp-vault-looking-up-multiple-secrets %}) which covers that scenario.

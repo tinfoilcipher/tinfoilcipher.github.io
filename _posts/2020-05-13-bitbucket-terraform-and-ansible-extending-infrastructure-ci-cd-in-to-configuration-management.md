@@ -17,7 +17,7 @@ tags:
   - "terraform"
 ---
 
-In previous posts we looked at a [**basic example of creating Immutable Infrastructure via BitBucket Pipelines using Terraform**](/bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure/) as well as [why we would want to use Immutable Infrastructure and what benefits it brings](/immutable-infrastructure-the-what-and-why/). However we didn't look at how to extend the pipeline in to Configuration Management. We're going to look at that now, leveraging Ansible within the pipeline to automatically configure the instances we create immediately after they have been created for true one-touch, immutable deployments.
+In previous posts we looked at a [**basic example of creating Immutable Infrastructure via BitBucket Pipelines using Terraform**]({% post_url 2020-05-11-bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure %}) as well as [why we would want to use Immutable Infrastructure and what benefits it brings]({% post_url 2020-05-12-immutable-infrastructure-the-what-and-why %}). However we didn't look at how to extend the pipeline in to Configuration Management. We're going to look at that now, leveraging Ansible within the pipeline to automatically configure the instances we create immediately after they have been created for true one-touch, immutable deployments.
 
 Sample code for this post can be found **[here](https://github.com/tinfoilcipher/blogexamples/tree/main/terraform-ansible-cicd-example)**.
 
@@ -25,7 +25,7 @@ Sample code for this post can be found **[here](https://github.com/tinfoilcipher
 
 ## Existing Components
 
-This post is going to follow the previous [**Terraform-only deployment**](/bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure/) (which I'd recommend reading first). For the most part the Terraform EC2 deployment is identical and still leverages the Hashicorp Vault deployment for provisioning, some other components which we will be relying on extensively are:
+This post is going to follow the previous [**Terraform-only deployment**]({% post_url 2020-05-11-bitbucket-aws-and-terraform-flexible-ci-cd-for-immutable-infrastructure %}) (which I'd recommend reading first). For the most part the Terraform EC2 deployment is identical and still leverages the Hashicorp Vault deployment for provisioning, some other components which we will be relying on extensively are:
 
 - The SSH Key Pair **tinfoil-key** is still being used to gain access to the EC2 instances, this Key Pair was generated outside of AWS so we have both the public and private keys
 - We still have the _TF\_VAR\*_ variables being injected from the BitBucket pipeline which is being used for the Terraform provisioning.

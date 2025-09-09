@@ -17,7 +17,7 @@ tags:
   - "vault"
 ---
 
-In my [last post](/hashicorp-vault-secure-installation-and-setup/) I covered the setup and hardening of Hashicorp's Vault platform, in this post I'll be looking at getting to grips with REST API and the Token authentication method. Tokens are core to the Vault authentication system, the platform is at it's heart designed to be interacted with programmatically by external systems over the API and the UI exists only to make the platform less bewildering for day to day administration.
+In my [last post]({% post_url 2020-04-09-hashicorp-vault-secure-installation-and-setup %}) I covered the setup and hardening of Hashicorp's Vault platform, in this post I'll be looking at getting to grips with REST API and the Token authentication method. Tokens are core to the Vault authentication system, the platform is at it's heart designed to be interacted with programmatically by external systems over the API and the UI exists only to make the platform less bewildering for day to day administration.
 
 ## One Token So Far?
 

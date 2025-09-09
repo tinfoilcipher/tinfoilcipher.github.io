@@ -17,7 +17,7 @@ tags:
   - "security"
 ---
 
-I've talked a lot here about **[certificates](/understanding-certificates-the-job-everyone-hates/)** and [**how to set up a PKI**](/bind-dns-and-tinyca-certificate-authority/) in the past, it's a topic I enjoy a lot and seems to be generally loathed. I was pretty pleased to discover **[cert-manager](https://cert-manager.io/)**, which is a Kubernetes application designed to automate the creation and lifecycle management of TLS certificates within a Kubernetes environment. Despite being such a popular system, it still seems to create quite a bit of confusion, so in this short post I'm going to go through process of boostrapping a _Certificate Authority_ and issuing certificates for various purposes so you can start using _cert-manager_ as quick as possible.
+I've talked a lot here about **[certificates]({% post_url 2020-03-01-understanding-certificates-the-job-everyone-hates %})** and [**how to set up a PKI**](/bind-dns-and-tinyca-certificate-authority/) in the past, it's a topic I enjoy a lot and seems to be generally loathed. I was pretty pleased to discover **[cert-manager](https://cert-manager.io/)**, which is a Kubernetes application designed to automate the creation and lifecycle management of TLS certificates within a Kubernetes environment. Despite being such a popular system, it still seems to create quite a bit of confusion, so in this short post I'm going to go through process of boostrapping a _Certificate Authority_ and issuing certificates for various purposes so you can start using _cert-manager_ as quick as possible.
 
 The Kubernetes manifests used in this post can be found in GitHub [**here**](https://github.com/tinfoilcipher/blogexamples/tree/main/cert-manager).
 

@@ -83,7 +83,7 @@ resource "aws_instance" "tinfoil" {
 }
 ```
 
-Take note here that we are defining the **backend** configuration which we will use to centralise states as [we have discussed previously](/terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning/). The requirement for this is strict and we will look at this later.
+Take note here that we are defining the **backend** configuration which we will use to centralise states as [we have discussed previously]({% post_url 2020-04-23-terraform-vault-and-azure-storage-centralised-iac-for-cloud-provisioning %}). The requirement for this is strict and we will look at this later.
 
 ```terraform
 #--varibles.tf

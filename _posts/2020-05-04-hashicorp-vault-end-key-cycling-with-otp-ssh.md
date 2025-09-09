@@ -39,7 +39,7 @@ If you aren't at all familiar with Vault, I would first recommend taking a look 
 - The CA certificate is already located on the Vault server at **/etc/ssl/certs/mc-strongbox-ca.cer**
 - OTP will be tested via a single endpoint named **mc-client**
 
-The configuration of this policy is detailed under a [previous post found here](/hashicorp-vault-tokens-and-the-rest-api/).
+The configuration of this policy is detailed under a [previous post found here]({% post_url 2020-04-13-hashicorp-vault-tokens-and-the-rest-api %}).
 
 We'll be doing the configuration in the Vault UI for the entirety of this guide for the sake of simplicity, though all of these actions can also be performed using the Vault CLI and API when it comes to performing workflow, integration and automation actions.
 

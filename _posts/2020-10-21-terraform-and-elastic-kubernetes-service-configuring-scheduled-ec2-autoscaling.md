@@ -80,7 +80,7 @@ The second we try and run this again our timestamp will probably have passed, so
 
 ## Making the Configuration Idempotent
 
-We looked in a previous post around **[the use and manipulation of timestamps using Terraform's built in timestamp functions](/terraform-tricks-working-with-timestamps/)** and these can help us to overcome this particular problem by ensuring that when we run this configuration incrementally that the start date is always ahead of our current time:
+We looked in a previous post around **[the use and manipulation of timestamps using Terraform's built in timestamp functions]({% post_url 2020-10-19-terraform-tricks-working-with-timestamps %})** and these can help us to overcome this particular problem by ensuring that when we run this configuration incrementally that the start date is always ahead of our current time:
 
 ```terraform
 #--Determine Scaling Times

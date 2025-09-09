@@ -44,7 +44,7 @@ This of course gets more complicated when we consider that we could possibly see
 
 In my experience to date ELB Classic is the far more pervasive LB solution and leverages the standard **[LoadBalancer Service](https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer)**.
 
-Terraform can leverage the [**Kubernetes _provider**](/creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform/) to look up the current value assigned to an ELB Classic Istio LoadBalancer. The below example performs this lookup and writes the value to a Route 53 CNAME named **myapp.tinfoilcipher.co.uk**:
+Terraform can leverage the [**Kubernetes _provider**]({% post_url 2020-07-06-creating-authenticating-and-configuring-elastic-kubernetes-service-using-terraform %}) to look up the current value assigned to an ELB Classic Istio LoadBalancer. The below example performs this lookup and writes the value to a Route 53 CNAME named **myapp.tinfoilcipher.co.uk**:
 
 ```terraform
 #--Lookup ELB DNS Name

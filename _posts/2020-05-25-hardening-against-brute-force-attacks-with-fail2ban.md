@@ -17,7 +17,7 @@ Even in 2020 (current year argument), it's woeful how prevalent Brute Force Atta
 
 ## What Is fail2ban?
 
-I've briefly discussed the use of **fail2ban** as part of [proper configuration of SSH and SFTP](/ssh-and-sftp-public-key-authentication-doing-it-right/) in the past, but it's use really does extend beyond SSH. In a nutshell fail2ban is a Unix-like log parser that looks at structured security logs for repeat patterns (say a repeated IP address or hostname appearing with failed authentication) and under such circumstances sending that offending IP to it's _jail_ for such a time as you see fit.
+I've briefly discussed the use of **fail2ban** as part of [proper configuration of SSH and SFTP]({% post_url 2020-03-08-ssh-and-sftp-public-key-authentication-doing-it-right %}) in the past, but it's use really does extend beyond SSH. In a nutshell fail2ban is a Unix-like log parser that looks at structured security logs for repeat patterns (say a repeated IP address or hostname appearing with failed authentication) and under such circumstances sending that offending IP to it's _jail_ for such a time as you see fit.
 
 This process is highly automated and unless you have a broken automation where a service account has a bad credential or something of the like you shouldn't really notice what's happening. The ideal scenario would be that your services just don't come under attack, but the real world scenario is that your services are under attack, all of the time, if you aren't doing anything about it then it's just a ticking clock once you put something on the internet that it will eventually be compromised with no mitigation put in place.
 
