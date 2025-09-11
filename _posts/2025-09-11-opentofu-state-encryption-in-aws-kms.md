@@ -17,7 +17,9 @@ tags:
   - "secops"
 ---
 
-One of the problems that's been present in [Terraform](https://developer.hashicorp.com/terraform) for a while is that any secrets that make there way in to your state remain visible in the clear. The state is, after all, just a big JSON document. There is an argument to be made that secrets shouldn't really be in the state, but this is at the mercy of both the engineers and developers using your Terraform implementation and the compromises that might need to be made for all kinds of reasons, usually stemming from legacy software and messy integrations. Here in the real world, secrets often to find their way in to the state file and we rely on the encryption at rest functionality of the storage volume holding our states as the only means of security. Meaning that the storage volume is a goldmine for a potential attacker.
+One of the problems that's been present in [Terraform](https://developer.hashicorp.com/terraform) for a while is that any secrets that make their way in to your state remain visible in the clear. The state is, after all, just a big JSON document. There is an argument to be made that secrets shouldn't really be in the state, but this is at the mercy of both the engineers and developers using your Terraform implementation and the architectural compromises that might need to be made for all kinds of reasons, usually stemming from legacy software and messy integrations.
+
+Here in the real world, secrets often to find their way in to the state file and we rely on the encryption at rest functionality of the storage volume holding our states as the only means of security. Meaning that the storage volume is a goldmine for a potential attacker.
 
 Over the years I have seen solutions to this problem designed by security minded admins using PGP, but these are all quite brittle and PGP is a pretty unfriendly tool. Luckily [OpenTofu](https://opentofu.org) (the open source fork of Terraform) has solved this problem with native state-level encryption that plugs in to several of the major cloud players. The [official docs on this topic](https://opentofu.org/docs/language/state/encryption/) are good but pretty dense, so in this post I'll be looking at how to get set up using a standard AWS S3 backend.
 
@@ -57,7 +59,7 @@ terraform {
 }
 ```
 
-This basic configuration will ensure that any resources we create are encrypted. So let's create a resource:
+This basic configuration will ensure that any resources we create are encrypted. So let's configure a resource:
 
 ```terraform
 resource "random_password" "example_password" {
@@ -70,6 +72,8 @@ output "example_password" {
   sensitive = true
 }
 ```
+
+...and create it:
 
 ```bash
 tofu init
@@ -114,7 +118,7 @@ However, if we investigate the actual raw JSON of our state file from the backen
 }
 ```
 
-## What About Existing Configurations?
+## What About Existing States?
 
 This is all good and well if you're starting from scratch, but what about turning on encryption for an existing project? That requires another hoop to jump through, the existing state first needs to be encrypted and then handed off in to encryption mode. If you try to just turn on encryption you will see the error below:
 
@@ -180,6 +184,8 @@ With this complete, remove the below stanzas from your *terraform* configuration
 method "unencrypted" "migration"
 ```
 
+...and:
+
 ```terraform
   ...
     fallback {
@@ -192,7 +198,7 @@ The state is now encrypted and can be used as normal.
 
 ## Turning Off Encryption
 
-Finally, if you need to turn off state encryption, you will still need to have access to your key and need to roughly go through the process above in reverse using the **unencrypted** method as shown below:
+If for some reason you need to turn off state encryption, you will still need to have access to your key and need to go through roughly the same process as above but in reverse using the **unencrypted** method:
 
 ```terraform
 terraform {
@@ -209,14 +215,14 @@ terraform {
       key_spec   = "AES_256" #--Standard for a KMS generated key, replace if you provided your own key material
     }
 
-    method "unencrypted" "migrate" {} #--Unencrypted method, used to migrate away from an encrypted state
+    method "unencrypted" "migration" {} #--Unencrypted method, used here to migrate away from an encrypted state
 
     method "aes_gcm" "tfc" {
       keys = key_provider.aws_kms.tfc #--The key should remain unchanged
     }
 
     state {
-      method = method.unencrypted.migrate #--The PRIMARY method used for the state should now be unencrypted
+      method = method.unencrypted.migration #--The PRIMARY method used for the state should now be unencrypted
       fallback {
         method = method.aes_gcm.tfc #--The fallback method should now be the encryption method that is being migrated away from
       }
