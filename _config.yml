@@ -13,8 +13,6 @@ paginate: 5
 
 paginate_path: "/page:num"
 
-google_analytics:
-
 url: https://tinfoilcipher.github.io
 
 baseurl: ""
