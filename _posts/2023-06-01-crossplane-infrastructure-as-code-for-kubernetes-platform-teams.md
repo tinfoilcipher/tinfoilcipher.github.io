@@ -20,7 +20,7 @@ tags:
 
 It's no secret that I love Terraform but it's not without it's drawbacks and when operating a platform built around Kubernetes it can be a tall order to introduce and migrate to. In this post I'm going to look at a less well known Infrastructure as Code solution; **[Crossplane](https://crossplane.io/)**. Whilst it's creators don't bill it as an IaC solution it certainly offers the same functionality in a very different way so let's take a look.
 
-The sample code for this article can be found **[her](https://github.com/tinfoilcipher/blogexamples/crossplane-examples)[e](https://github.com/tinfoilcipher/blogexamples/crossplane-example)**.
+The sample code for this article can be found **[here](https://github.com/tinfoilcipher/blogexamples/crossplane-examples)(https://github.com/tinfoilcipher/blogexamples/crossplane-example)**.
 
 
 <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01.png" class="scaled-img-75">
