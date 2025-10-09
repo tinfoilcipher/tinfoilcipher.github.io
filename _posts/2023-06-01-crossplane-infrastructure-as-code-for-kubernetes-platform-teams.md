@@ -18,6 +18,8 @@ tags:
   - "microservices"
 ---
 
+**UPDATE 08/10/2025**: If you are reading this article and nothing seems to work anymore. It was written for Crossplane 1.9. [ I have written a newer guide for Crossplane v2.0 here ]({% post_url 2025-10-08-crossplane-v2-iac-for-k8s-platform-teams-part-1 %}).
+
 It's no secret that I love Terraform but it's not without it's drawbacks and when operating a platform built around Kubernetes it can be a tall order to introduce and migrate to. In this post I'm going to look at a less well known Infrastructure as Code solution; **[Crossplane](https://crossplane.io/)**. Whilst it's creators don't bill it as an IaC solution it certainly offers the same functionality in a very different way so let's take a look.
 
 The sample code for this article can be found **[here](https://github.com/tinfoilcipher/blogexamples/tree/main/crossplane-example)**.
