@@ -18,11 +18,11 @@ tags:
   - "microservices"
 ---
 
-**[Crossplane](https://crossplane.io/)** is an interesting piece of software and a relative newcomer to the *Infrastructure as Code* space. It's creators don't like to bill it as an Infrastructure as Code solution, but the more you look...it's primary offering does appear to be the provisioning and management of infrastructure resources...via code, so I'll let you be the judge. There are some core differences that separate *Crossplane* from it's competitors that are worth getting in to but the majority of conversations appear to be wrapped using *Crossplane* to template and provision resources. With that in mind, I want to take a look at this first and then move on to the advanced features.
+**[Crossplane](https://crossplane.io/)** is an interesting piece of software and a relative newcomer to the *Infrastructure as Code* space. It's creators don't like to bill it as an Infrastructure as Code solution, but the more you look...it's primary offering does appear to be the provisioning and management of infrastructure resources...via code, so I'll let you be the judge. There are some core differences that separate *Crossplane* from it's competitors that are worth getting in to but the majority of conversations appear to be around using *Crossplane* to template, provision and manage cloud resources. With that in mind, I want to take a look at this first and then move on to the more advanced features.
 
-It's been a minute since we last looked at *Crossplane*, [back when we last took a look ]({% post_url 2023-06-01-crossplane-infrastructure-as-code-for-kubernetes-platform-teams %}) the application was already fairly mature in v1.9, but recently v2.0 has released and a lot has changed. Some of the core ideas have been thrown out completely in favour of a whole new set of systems and concepts that need to be learned, as such a lot of the information out there is stale, so let's start from scratch and try and figure it out again.
+It's been a minute since we last looked at *Crossplane*, [back when we last took a look ]({% post_url 2023-06-01-crossplane-infrastructure-as-code-for-kubernetes-platform-teams %}) the application was already fairly mature in v1.9, but recently v2.0 has released and a lot has changed. Some of the core ideas have been thrown out completely in favour of a whole new set of systems and concepts that need to be learned. Because of this change, a lot of the information out there is stale, so let's start from scratch and try and figure it out again.
 
-The sample code for this article can be found **[here](https://github.com/tinfoilcipher/blogexamples/crossplane-v2-example/part-1)**.
+The sample code for this article can be found **[here](https://github.com/tinfoilcipher/blogexamples/tree/main/crossplane-v2-example/part-1)**.
 
 <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/01.png" class="scaled-img-75">
 
@@ -32,21 +32,21 @@ If you go to the **[Crossplane Website](https://crossplane.io/)**, you would be 
 
 <blockquote>
   Crossplane Is the Cloud-Native Framework for Platform Engineering. Create platforms like cloud providers. Build your own APIs and services with control planes. Extend Kubernetes to manage any resource anywhere. Use a library of components to assemble your platform faster
-  - https://crossplane.io/
+  <footer>- https://crossplane.io/</footer>
 </blockquote>
 
 Sounds fancy, but it's a bit impenetrable, what's on offer here?
 
-The term *Control Plane* has it's roots in physical network routing and switching, but around a decade ago the term was hijacked by developers creating the first wave of truly cloud-native systems. These days, in cloud systems, a *Control Plane* has come to mean a piece of software, usually some kind of platform exposed via an API, that controls and manages other platform systems on the back end. In a nutshell, you as the consumer send your requests to the *Control Plane*'s API, and it undertakes action on your behalf. To quote the Crossplane docs:
+The term *Control Plane* has it's roots in physical network routing and switching, but around a decade ago the term was hijacked by developers creating the first wave of cloud-native systems. These days, in cloud systems, a *Control Plane* has come to mean a piece of software, usually some kind of platform exposed via an API, that controls and manages other platform systems on the back end. Uou as the consumer send your requests to the *Control Plane*'s API, and it undertakes action on your behalf. To quote the Crossplane docs:
 
 <blockquote>
   A control plane can configure any cloud native software. It could deploy an app, create a load balancer, or create a GitHub repository.
-  - https://docs.crossplane.io/latest/whats-crossplane/
+  <footer>- https://docs.crossplane.io/latest/whats-crossplane/</footer>
 </blockquote>
 
 That is a very big claim and it's still pretty vague, so let's try and make sense of it...
 
-*Crossplane* creates additional *Control Plane(s)* inside Kubernetes which act as the orchestration layer for *Managed Resources* in your cloud systems. It offers this functionality by allowing you to create your own custom resources, templating and workflows which are offered to consumers as [Kubernetes CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). This allows consumers to create and manage cloud resources via the same YAML manifests used elsewhere in Kubernetes and removes the burden for development teams to learn domain specific languages (as are needed for *Terraform*, *CloudFormation*, *ARM Templates* etc.)
+*Crossplane* creates additional *Control Plane(s)* inside Kubernetes which act as the orchestration layer for resources in your cloud systems. It offers this functionality by allowing you to create your own custom resources, templating and workflows which are offered to consumers as [Kubernetes CRDs](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). This allows consumers to create and manage cloud resources via the same YAML manifests used elsewhere in Kubernetes and removes the burden for development teams to learn domain specific languages (as are needed for *Terraform*, *CloudFormation*, *ARM Templates* etc.)
 
 A final thing to be aware of; Kubernetes already operates it's own *Control Plane* (known as the *Master Nodes* in old lingo). Don't get this mixed up if you're trying to do your own reading. Crossplane, along with anything it manages will be executed on the Kubernetes *Data Plane* the same as any other workload.
 
@@ -54,7 +54,7 @@ That's a lot to process so let's try and draw it out with a pretty picture:
 
 <figure>
   <img src="/assets/{{ page.path | split: '/' | last | split: '.' | first }}/02.png">
-  <figcaption>In this diagram, a Crossplane Control Plane is constructed by the Crossplane core systems and used to orchestrate the lifecycle of AWS resources.</figcaption>
+  <figcaption>In this diagram, a Crossplane Control Plane is constructed by the Crossplane core systems and used to orchestrate the lifecycle of AWS resources, though any cloud provider could be represented here.</figcaption>
 </figure>
 
 OK, that was a mouthful, how do we actually get something installed?
@@ -82,7 +82,7 @@ Once installed, run
 kubectl get pods -n crossplane-system -w
 ```
 
-...and wait for all pods to be healthy:
+...and wait for all pods to be *Ready*:
 
 ```bash
 # NAME                                         READY   STATUS    RESTARTS   AGE
@@ -98,9 +98,9 @@ All of the documentation examples for *Crossplane* show how to do this using sta
 
 There are 3 main concepts to understand in how we should properly integrate with a public cloud using *Crossplane*:
 
-- **Deployment Runtime Configs** - This object defines your IRSA role (as well as any other environment config), the role can be scoped to as many or as few AWS resources as required
-- **Providers** - The provider downloads a third party plugin to communicate with a specific cloud provider API from the [upbound Marketplace](https://marketplace.upbound.io/providers) (for example AWS S3 or Azure Compute). It uses the credentials from a *Deployment Runtime Config* to authenticate with the API.
-- **Provider Configs** - Provider configs are the interface that *Managed Resources* use to send requests to the *Provider*. They can either be *Namespaced* or *Cluster Wide*. Different *Provider Configs* can be used to pass different sets of settings to the same *Provider*, or can be used to serve the same *Provider* to several *Namespaces*.
+- **Deployment Runtime Configs** - This object defines your IRSA role (as well as any other environment config).
+- **Providers** - The provider downloads a Crossplane plugin to communicate with a specific cloud provider API (in a package called an **xpkg**) . It uses the credentials from a *Deployment Runtime Config* to authenticate with the API.
+- **Provider Configs** - Provider configs are the interface that *Managed Resources* use to send requests to the *Provider*. They can either be *Namespaced* or *Cluster Wide*. Different *Provider Configs* can be used to pass different sets of settings to the same *Provider* and can be used to serve the same *Provider* to several *Namespaces*.
 
 The below diagram shows how this works in a little more detail
 
@@ -126,9 +126,9 @@ kind: Provider
 metadata:
   name: provider-aws-s3
 spec:
-  package: ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0 # Installs the aws-s3 provider. Releases are listed at https://github.com/orgs/crossplane-contrib/packages.
-  runtimeConfigRef:                                          # There is some confusion about where to install packages. The docs say to use xpkg.crossplane.io since Crossplane v1.2 (with the old
-    name: aws #--Links to the Runtime Config above           # source being xpkg.upbound.io.). However GitHub hosts them at ghcr.io/crossplane-contrib. Muddled advice!
+  package: ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0
+  runtimeConfigRef:
+    name: aws #--Links to the Runtime Config above
 ```
 
 Apply these configs with:
@@ -137,7 +137,7 @@ Apply these configs with:
 kubectl apply -f provider.yaml
 ```
 
-The provider will take a few seconds to come online as it needs to download the API plugin package (called an **xpkg**). You can check the status of the installation with:
+The provider will take a few seconds to come online as it needs to download the API plugin package. You can check the status of the installation with:
 
 ```bash
 kubectl get provider
@@ -191,13 +191,27 @@ Apply with:
 kubectl apply -f 02-permissions.yaml
 ```
 
-With this, the *Provider* is now ready to be consumed.
+## Packages, Specs and Where To Find Them
+
+As we have mentioned above, *Providers* need to be pointed at a specific *Package* in order to download an API plugin. As you look around the internet you will see a lot of conflicting information about where to download your plugins and how to find the input specs for the CRDs they provide. This information isn't exactly obvious and appears to have changed gradually over time. This is the most up to date information I've been able to find:
+
+| URL/URI                                                  | Purpose                                                                 |
+|----------------------------------------------------------|-------------------------------------------------------------------------|
+| https://github.com/orgs/crossplane-contrib/packages      | Lists releases for official *Crossplane* packages, also contains docs   |
+| https://marketplace.upbound.io/                          | Provides input spec for *Packages* **and** the *CRDs* that they provide |
+| ghcr.io/crossplane-contrib/$PACKAGE_NAME:$TAG            | Image URI for package hosted in releases above                          |
+| xpkg.crossplane.io/crossplane-contrib/$PACKAGE_NAME/$TAG | Image URI for packages **AS RECOMMENDED IN THE DOCS**                   |
+| xpkg.upbound.io/crossplane-contrib/$PACKAGE_NAME/$TAG    | Image URI for packages **PRIOR TO CROSSPLANE v1.2**                     |
+
+Quite a confusing set of addresses there and a lack of consistency in how to apply them. Personally, I have found the best way to work is to use `ghcr.io` to pull packages, since comprehensive docs and links to the right place are all on the GitHub release page. Though this is in opposition to what the docs suggest.
+
+With this understood, the *Provider* is now ready to be consumed.
 
 ## Where Exactly Are Providers?
 
-As a small point of clarity, *Providers* are **ALWAYS** deployed to the same *Namespace* as the *Crossplane* installation, which by default is *crossplane-system*. This is not negotiable. You can create as many *Providers* as you want, but there is no way to host them in a separate *Namespace*.
+As another point of clarity, *Providers* are **ALWAYS** deployed to the same *Namespace* as the *Crossplane* installation, which by default is *crossplane-system*. You can create as many *Providers* as you want, but there is no way to host them in a separate *Namespace*.
 
-When a *Provider* is deployed and it pulls an *xpkg*, a *Pod* is started that handles the execution of any tasks sent that *Provider* (I.E. the creation and management of any *Managed Resources*). If we look up our *Providers*, note that we don't need to specify a *Namespace*:
+When a *Provider* is deployed and it pulls a *Package*, a *Pod* is started that handles the execution of any tasks nt that *Provider* (I.E. the creation and management of any *Managed Resources*). If we look up our *Providers*, note that we don't need to specify a *Namespace*:
 
 ```bash
 kubectl get provider
@@ -222,7 +236,7 @@ In this example, looking at the logs of *provider-aws-s3-b8661e4aa4e9-12c59dedd1
 
 As mentioned already, *ProviderConfigs* can be Cluster Wide or Namespaced. This means that you have two options:
 
-- Creating a config that can be consumed by all consumers on a cluster, from any namespace
+- Creating a config that can be consumed by all consumers on a cluster, from any namespace.
 - Creating a config that can be consumed from only within a single namespace.
 
 This second option is more useful in multi-tenant environments, where multiple tenants are operating on a single Kubernetes cluster and only have permissions to create *Managed Resources* in their own *Namespace*. In this arrangement, multiple tenants can have dedicated *ProviderConfigs* for their own *Namespaces*, sharing the same underlying *Provider*.
@@ -240,7 +254,7 @@ The below manifests will create *Namespaced ProviderConfigs* in our *Namespaces*
 #--03-providerconfigs.yaml
 
 apiVersion: aws.m.upbound.io/v1beta1 #--For namespaced ProviderConfigUsages. For Cluster-wide use aws.upbound.io
-kind: ProviderConfig
+kind: ProviderConfig  #--For namespaced. For Cluster-wide use ClusterProviderConfig
 metadata:
   name: aws-s3
   namespace: tenant1 #--Scoped to the tenants namespace. Remove this field for cluster-wide ProviderConfigs
@@ -284,7 +298,7 @@ spec:
     forceDestroy: true #--S3 configuration parameter
     region: eu-west-2 #--AWS Region
   providerConfigRef:
-    kind: ProviderConfig
+    kind: ProviderConfig #--For namespaced, for cluster-wide use ClusterProviderConfig
     name: aws-s3 #--Provider config as defined earlier
 ---
 apiVersion: s3.aws.m.upbound.io/v1beta1
@@ -312,12 +326,12 @@ After a few seconds, your *Managed Resources* should exist in AWS:
 ```bash
 kubectl get buckets.s3.aws.m.upbound.io --all-namespaces
 # NAMESPACE   NAME                                       SYNCED   READY   EXTERNAL-NAME                              AGE
-# tenant1     tinfoil-example-bucket-08-10-25-tenant-1   True     True    tinfoil-example-bucket-08-10-25-tenant-1   3m9s
-# tenant2     tinfoil-example-bucket-08-10-25-tenant-2   True     True    tinfoil-example-bucket-08-10-25-tenant-2   41s
+# tenant1     tinfoil-example-bucket-08-10-25-tenant-1   True     True    tinfoil-example-bucket-08-10-25-tenant-1   41s
+# tenant2     tinfoil-example-bucket-08-10-25-tenant-2   True     True    tinfoil-example-bucket-08-10-25-tenant-2   43s
 ```
 
-- *Synced*: True: Means that *Crossplane* has sucessfully reconciled it's desired state for your *Managed Resource* with AWS
-- *Ready*: True: Means that your *Managed Resource* is provisioned/modified in AWS and is ready for use
+- **Synced**: True: Means that *Crossplane* has sucessfully reconciled it's desired state for your *Managed Resource* with AWS.
+- **Ready**: True: Means that your *Managed Resource* is provisioned/modified in AWS and is ready for use.
 
 If we check the AWS console, we can see that the S3 are indeed present:
 
