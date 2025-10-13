@@ -134,7 +134,7 @@ spec:
 Apply these configs with:
 
 ```bash
-kubectl apply -f provider.yaml
+kubectl apply -f 01-provider.yaml
 ```
 
 The provider will take a few seconds to come online as it needs to download the API plugin package. You can check the status of the installation with:
@@ -241,17 +241,32 @@ As mentioned already, *ProviderConfigs* can be Cluster Wide or Namespaced. This 
 
 This second option is more useful in multi-tenant environments, where multiple tenants are operating on a single Kubernetes cluster and only have permissions to create *Managed Resources* in their own *Namespace*. In this arrangement, multiple tenants can have dedicated *ProviderConfigs* for their own *Namespaces*, sharing the same underlying *Provider*.
 
-To demonstrate this, we can create some tenant `Namespaces`:
+To demonstrate this, we can create some tenant `Namespaces` using the manifest below:
+
+```yaml
+#--03-namespaces.yaml
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant2
+```
+
+Apply with:
 
 ```bash
-kubectl create ns tenant1
-kubectl create ns tenant2
+kubectl apply -f 03-namespaces.yaml
 ```
 
 The below manifests will create *Namespaced ProviderConfigs* in our *Namespaces*:
 
 ```yaml
-#--03-providerconfigs.yaml
+#--04-providerconfigs.yaml
 
 apiVersion: aws.m.upbound.io/v1beta1 #--For namespaced ProviderConfigUsages. For Cluster-wide use aws.upbound.io
 kind: ProviderConfig  #--For namespaced. For Cluster-wide use ClusterProviderConfig
@@ -276,7 +291,7 @@ spec:
 Apply with:
 
 ```bash
-kubectl apply -f 03-providerconfigs.yaml
+kubectl apply -f 04-providerconfigs.yaml
 ```
 
 Once deployed, the *Provider* watches for *Resource* requests coming via a *ProviderConfig* that it supports.
@@ -286,7 +301,7 @@ Once deployed, the *Provider* watches for *Resource* requests coming via a *Prov
 With everything in place, we can now start creating *Managed Resources* in our *Namespaces*. The below manifest will create a couple of S3 Buckets:
 
 ```yaml
-#--04-resources.yaml
+#--05-resources.yaml
 
 apiVersion: s3.aws.m.upbound.io/v1beta1 #--Namespaced CRD. For a cluster-wide resource, using a cluster-wide provider, use s3.aws.upbound.io/v1beta1
 kind: Bucket
@@ -318,7 +333,7 @@ spec:
 Apply with:
 
 ```bash
-kubectl apply -f 04-resources.yaml
+kubectl apply -f 05-resources.yaml
 ```
 
 After a few seconds, your *Managed Resources* should exist in AWS:
