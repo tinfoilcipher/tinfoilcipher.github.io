@@ -1,11 +1,10 @@
 name: Build tinfoilcipher.co.uk
 
 on:
-  push:
-    branches-ignore:
-      - main
   pull_request:
     types: [opened, synchronize]
+    branches-ignore:
+      - main
   workflow_dispatch:
 
 permissions:
