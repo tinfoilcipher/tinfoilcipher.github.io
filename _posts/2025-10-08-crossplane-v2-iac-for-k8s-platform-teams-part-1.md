@@ -298,7 +298,19 @@ Once deployed, the *Provider* watches for *Resource* requests coming via a *Prov
 
 ## Deploying Managed Resources
 
-With everything in place, we can now start creating *Managed Resources* in our *Namespaces*. The below manifest will create a couple of S3 Buckets:
+With everything in place, we can now start creating *Managed Resources* in our *Namespaces*. Whilst the input spec of each *Managed Resource* is different, they all share a set of common fields in their schemas:
+
+| Field                      | Purpose                                                                                                                              | Optional |
+|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|----------|
+| forProvider                | Used to pass input parameters to the *Managed Resource*                                                                              | No       |
+| initProvider               | used to override *Provider* default configuration values                                                                             | Yes      |
+| providerConfigRef          | Defines the *ProviderConfig* if one is being used.                                                                                   | No       |
+| managementPolicies         | Manages Crossplane [Management Policies](https://docs.crossplane.io/latest/managed-resources/managed-resources/#managementpolicies). | Yes      |
+| writeConnectionSecretToRef | Secret name to output secrets for a *Managed Resource* that generates secret return data.                                            | Yes      |
+
+These are all detailed in the [Crossplane Managed Resource docs](https://docs.crossplane.io/latest/managed-resources/managed-resources/).
+
+The below manifest will create a couple of S3 Bucket *Managed Resources*:
 
 ```yaml
 #--05-resources.yaml
