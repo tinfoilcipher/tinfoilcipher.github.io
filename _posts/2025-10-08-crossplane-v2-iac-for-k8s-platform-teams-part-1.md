@@ -1,5 +1,5 @@
 ---
-title: "Crossplane V2 – Infrastructure as Code for Kubernetes Platform Teams Part 1"
+title: "Crossplane v2 – Infrastructure as Code for Kubernetes Platform Teams Part 1"
 layout: post
 date: 2025-10-08
 categories: 
