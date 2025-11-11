@@ -32,7 +32,7 @@ Throughout this article we will be using several of the components that we set u
 - A *Provider* called *provider-aws-s3*, using the *provider-aws-s3:v2.1.0* *Package* which consumes the *aws DeploymentRuntimeConfig*
 - A *ClusterRole* and *ClusterRoleBinding* to handle *ServiceAccount* permissions for our *Provider*
 - Namespaces for multiple tenants, named *tenant1* and *tenant2*
-- *Namespaced ProviderConfigs*, one for for each *Namespace*. Both using the *provider-aws-s3 Provider* and authenticating using *IRSA*
+- A *ClusterProviderConfig* which will use the *provider-aws-s3 Provider* and authenticate using *IRSA*
 
 We won't cover what each of these is for, it's all in the [previous article]({% post_url 2025-10-08-crossplane-v2-iac-for-k8s-platform-teams-part-1 %}).
 
@@ -97,7 +97,7 @@ spec:
                     region: #--User input
                       type: string
                     versioning: #--User input
-                      type: bool
+                      type: string
                     kmsKeyID: #--User input
                       type: number
                   required: #--Mandatory inputs
@@ -193,8 +193,8 @@ spec:
                 #--Static configuration elements
                 forceDestroy: false
               providerConfigRef:
-                kind: ProviderConfig
-                name: aws-s3 #--Existing Namespaced ProviderConfig
+                kind: ClusterProviderConfig
+                name: aws-s3 #--Existing ClusterProviderConfig
           #--Patches take input values from an XR and pass them through
           #--the XRD spec and in to the Composition.
           #--E.G. the XRs input value in spec.parameters.region is used to
@@ -220,7 +220,7 @@ spec:
             kind: BucketVersioning
             spec:
               providerConfigRef:
-                kind: ProviderConfig
+                kind: ClusterProviderConfig
                 name: aws-s3
           patches:
             - fromFieldPath: "spec.parameters.region"
@@ -247,7 +247,7 @@ spec:
                   - applyServerSideEncryptionByDefault:
                       sseAlgorithm: aws:kms
               providerConfigRef:
-                kind: ProviderConfig
+                kind: ClusterProviderConfig
                 name: aws-s3
           patches:
             - fromFieldPath: "spec.parameters.region"
