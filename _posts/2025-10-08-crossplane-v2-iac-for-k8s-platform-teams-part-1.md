@@ -145,52 +145,6 @@ kubectl get provider
 # provider-aws-s3      True        True      ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0    15m
 ```
 
-Once healthy, get the *Service Account* name for the *Provider*:
-
-```bash
-kubectl get sa -n crossplane-system
-# ...
-# NAME                            SECRETS   AGE
-# provider-aws-s3-b8661e4aa4e9    0         22h
-```
-
-This appears to be an undocumented step, but the *Service Account* for the *Provider* will need to be given permissions to interact with the *Provider*:
-
-```yaml
-#--02-permissions.yaml
-
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: aws-s3
-rules:
-  - apiGroups: ["aws.m.upbound.io"] #--For namespaced ProviderConfigs. For Cluster-Wide use aws.upbound.io
-    resources: ["providerconfigs"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["aws.m.upbound.io"] #--For namespaced ProviderConfigUsages. For Cluster-Wide use aws.upbound.io
-    resources: ["providerconfigusages"]
-    verbs: ["get", "list", "watch", "create"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: aws-s3-binding
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: aws-s3
-subjects:
-  - kind: ServiceAccount
-    name: provider-aws-s3-b8661e4aa4e9 #--Your Service Account name here
-    namespace: crossplane-system
-```
-
-Apply with:
-
-```bash
-kubectl apply -f 02-permissions.yaml
-```
-
 ## Packages, Specs and Where To Find Them
 
 As we have mentioned above, *Providers* need to be pointed at a specific *Package* in order to download an API plugin. As you look around the internet you will see a lot of conflicting information about where to download your plugins and how to find the input specs for the CRDs they provide. This information isn't exactly obvious and appears to have changed gradually over time. This is the most up to date information I've been able to find:
@@ -236,15 +190,17 @@ In this example, looking at the logs of *provider-aws-s3-b8661e4aa4e9-12c59dedd1
 
 As mentioned already, *ProviderConfigs* can be Cluster Wide or Namespaced. This means that you have two options:
 
-- Creating a config that can be consumed by all consumers on a cluster, from any namespace.
-- Creating a config that can be consumed from only within a single namespace.
+- Creating *ClusterProviderConfig*, which can be consumed by all tenants on a cluster, from any namespace.
+- Creating multiple *ProviderConfigs* that can be consumed from only within a single namespace.
 
-This second option is more useful in multi-tenant environments, where multiple tenants are operating on a single Kubernetes cluster and only have permissions to create *Managed Resources* in their own *Namespace*. In this arrangement, multiple tenants can have dedicated *ProviderConfigs* for their own *Namespaces*, sharing the same underlying *Provider*.
+Both options work well in multi-tenant environments and both can be used to handle *Managed Resource* provisioning in scenarios where multiple tenants are operating on a single Kubernetes cluster and only have permissions to create *Managed Resources* in their own *Namespace*.
 
-To demonstrate this, we can create some tenant `Namespaces` using the manifest below:
+In this example we will be going with the creation of a *ClusterProviderConfig* though if you want to see how to configure multiple *Namespaced ProviderConfigs* I have [included some examples in GitHub here](https://github.com/tinfoilcipher/blogexamples/tree/main/crossplane-v2-example/part-1/provider_configuration_namespaced).
+
+First, lets create some tenant `Namespaces` using the manifest below:
 
 ```yaml
-#--03-namespaces.yaml
+#--02-namespaces.yaml
 
 apiVersion: v1
 kind: Namespace
@@ -260,38 +216,28 @@ metadata:
 Apply with:
 
 ```bash
-kubectl apply -f 03-namespaces.yaml
+kubectl apply -f 02-namespaces.yaml
 ```
 
-The below manifests will create *Namespaced ProviderConfigs* in our *Namespaces*:
+The below manifests will create a single *ClusterProviderConfig*:
 
 ```yaml
-#--04-providerconfigs.yaml
+#--03-providerconfig.yaml
 
-apiVersion: aws.m.upbound.io/v1beta1 #--For namespaced ProviderConfigUsages. For Cluster-wide use aws.upbound.io
-kind: ProviderConfig  #--For namespaced. For Cluster-wide use ClusterProviderConfig
+apiVersion: aws.m.upbound.io/v1beta1 #--Namespaced endpoint. Allows namespaced MR creation.
+kind: ClusterProviderConfig          
 metadata:
   name: aws-s3
-  namespace: tenant1 #--Scoped to the tenants namespace. Remove this field for cluster-wide ProviderConfigs
 spec:
   credentials:
     source: IRSA #--Look up credentials from the environment, using IRSA. As our Provider already has
                  #--this loaded in it's environment, authentication is transparent
----
-apiVersion: aws.m.upbound.io/v1beta1
-kind: ProviderConfig
-metadata:
-  name: aws-s3
-  namespace: tenant2
-spec:
-  credentials:
-    source: IRSA
 ```
 
 Apply with:
 
 ```bash
-kubectl apply -f 04-providerconfigs.yaml
+kubectl apply -f 03-providerconfig.yaml
 ```
 
 Once deployed, the *Provider* watches for *Resource* requests coming via a *ProviderConfig* that it supports.
@@ -313,19 +259,19 @@ These are all detailed in the [Crossplane Managed Resource docs](https://docs.cr
 The below manifest will create a couple of S3 Bucket *Managed Resources*:
 
 ```yaml
-#--05-resources.yaml
+#--04-resources.yaml
 
-apiVersion: s3.aws.m.upbound.io/v1beta1 #--Namespaced CRD. For a cluster-wide resource, using a cluster-wide provider, use s3.aws.upbound.io/v1beta1
+apiVersion: s3.aws.m.upbound.io/v1beta1 #--Namespaced CRD. Although cluster-wide ProviderConfig, our resources are namespaced
 kind: Bucket
 metadata:
   name: tinfoil-example-bucket-08-10-25-tenant-1 #--S3 Bucket name
-  namespace: tenant1 #--Namespace
+  namespace: tenant1 #--Provisioning Namespace
 spec:
   forProvider:
     forceDestroy: true #--S3 configuration parameter
     region: eu-west-2 #--AWS Region
   providerConfigRef:
-    kind: ProviderConfig #--For namespaced, for cluster-wide use ClusterProviderConfig
+    kind: ClusterProviderConfig
     name: aws-s3 #--Provider config as defined earlier
 ---
 apiVersion: s3.aws.m.upbound.io/v1beta1
@@ -338,8 +284,8 @@ spec:
     forceDestroy: true
     region: eu-west-2
   providerConfigRef:
-    kind: ProviderConfig
-    name: aws-s3 #--Provider config has the same name in each Namespace
+    kind: ClusterProviderConfig
+    name: aws-s3 #--Provider config as defined earlier
 ```
 
 Apply with:
