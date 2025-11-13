@@ -126,7 +126,7 @@ kind: Provider
 metadata:
   name: provider-aws-s3
 spec:
-  package: ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0
+  package: xpkg.upbound.io/upbound/provider-aws-s3:v2.1.0
   runtimeConfigRef:
     name: aws #--Links to the Runtime Config above
 ```
@@ -141,8 +141,8 @@ The provider will take a few seconds to come online as it needs to download the 
 
 ```bash
 kubectl get provider
-# NAME                 INSTALLED   HEALTHY   PACKAGE                                              AGE
-# provider-aws-s3      True        True      ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0    15m
+# NAME                 INSTALLED   HEALTHY   PACKAGE                                           AGE
+# provider-aws-s3      True        True      xpkg.upbound.io/upbound/provider-aws-s3:v2.1.0    15m
 ```
 
 ## Packages, Specs and Where To Find Them
@@ -153,11 +153,13 @@ As we have mentioned above, *Providers* need to be pointed at a specific *Packag
 |----------------------------------------------------------|-------------------------------------------------------------------------|
 | https://github.com/orgs/crossplane-contrib/packages      | Lists releases for official *Crossplane* packages, also contains docs   |
 | https://marketplace.upbound.io/                          | Provides input spec for *Packages* **and** the *CRDs* that they provide |
-| ghcr.io/crossplane-contrib/$PACKAGE_NAME:$TAG            | Image URI for package hosted in releases above                          |
+| ghcr.io/crossplane-contrib/$PACKAGE_NAME:$TAG            | Image URI for packages hosted in releases above                         |
 | xpkg.crossplane.io/crossplane-contrib/$PACKAGE_NAME/$TAG | Image URI for packages **AS RECOMMENDED IN THE DOCS**                   |
 | xpkg.upbound.io/crossplane-contrib/$PACKAGE_NAME/$TAG    | Image URI for packages **PRIOR TO CROSSPLANE v1.2**                     |
 
-Quite a confusing set of addresses there and a lack of consistency in how to apply them. Personally, I have found the best way to work is to use `ghcr.io` to pull packages, since comprehensive docs and links to the right place are all on the GitHub release page. Though this is in opposition to what the docs suggest.
+Quite a confusing set of addresses there and a lack of consistency in how to apply them. Personally, I have found the best way to work is to use `xpkg.crossplane.io` to pull packages **as recommended in the docs**. A comprehensive list of *Providers* and *Functions* can be browsed along with their schemas at [https://marketplace.upbound.io](https://marketplace.upbound.io), which is very similar to the Terraform Registry.
+
+An interesting quirk of all of this (that doesn't appear to be documented), is that any attempt to mix and match these sources **will** install your providers, but it will break the [built in RBAC manager for Provider Service Accounts](https://docs.crossplane.io/latest/guides/pods/#rbac-manager-pod) in very unusual ways. This is detailed [in this issue in detail](https://github.com/crossplane/crossplane/issues/5820).
 
 With this understood, the *Provider* is now ready to be consumed.
 
@@ -169,9 +171,9 @@ When a *Provider* is deployed and it pulls a *Package*, a *Pod* is started that 
 
 ```bash
 kubectl get provider
-# NAME                   INSTALLED   HEALTHY   PACKAGE                                               AGE
+# NAME                   INSTALLED   HEALTHY   PACKAGE                                            AGE
 # ...
-# provider-aws-s3        True        True      ghcr.io/crossplane-contrib/provider-aws-s3:v2.1.0     20m
+# provider-aws-s3        True        True      xpkg.upbound.io/upbound/provider-aws-s3:v2.1.0     20m
 ```
 
 If we search *Pods* in the *crossplane-system Namespace*, we can see a corresponding *Pod* which is responsible for execution:
@@ -314,4 +316,4 @@ If we check the AWS console, we can see that the S3 are indeed present:
 
 Believe it or not. This is all just the basics and doesn't even begin to scratch the surface. This might look like a lot of work just to create an S3 bucket, but remember that *Crossplane* is intended to work on a huge scale, automating and managing the creation and lifecycle of resources for large scale platforms, not just single resources. The foundation therefore needs to be sturdy and scalable before you create a single resource.
 
-As we move deeper in to *Crossplane* things get even more complex and more advanced just managing resources. In the next posts we'll be taking a look at how to really unlock the customisation potential of *Crossplane* by building custom CRDs to serve pre-templated service offerings and at some other automation functionality hiding inside.
+As we move deeper in to *Crossplane* things get even more complex and more advanced just managing resources. In the [next post]({% post_url 2025-10-14-crossplane-v2-iac-for-k8s-platform-teams-part-2 %}) we'll be taking a look at how to really unlock the customisation potential of *Crossplane* by building custom CRDs to serve pre-templated service offerings and at some other automation functionality hiding inside.
