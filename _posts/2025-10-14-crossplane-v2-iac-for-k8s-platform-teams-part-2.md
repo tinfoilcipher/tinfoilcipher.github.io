@@ -135,7 +135,7 @@ kind: Function
 metadata:
   name: patch-and-transform #--Name of your choice
 spec:
-  package: ghcr.io/crossplane-contrib/function-patch-and-transform:v0.9.0 #--https://github.com/orgs/crossplane-contrib/packages
+  package: xpkg.upbound.io/upbound/function-patch-and-transform:v0.9.0 #--https://marketplace.upbound.io
 ```
 
 Apply with:
@@ -146,7 +146,7 @@ kubectl apply -f 02-function.yaml
 
 kubectl get function
 # NAME                  INSTALLED   HEALTHY   PACKAGE                                                          AGE
-# patch-and-transform   True        True      ghcr.io/crossplane-contrib/function-patch-and-transform:v0.9.0   2m
+# patch-and-transform   True        True      xpkg.upbound.io/upbound/function-patch-and-transform:v0.9.0   2m
 ```
 
 With the *Function* installed we can create our *Composition*. When you send an *XR* request to your newly created *XRD* with some input values:
