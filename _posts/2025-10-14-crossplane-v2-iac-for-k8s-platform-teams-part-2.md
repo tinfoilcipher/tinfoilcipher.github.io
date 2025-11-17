@@ -374,7 +374,7 @@ spec:
 ...
 ```
 
-If you are working in a scenario where you have multiple *Compositions* on the same *XRD* and you don't pass a *Composition Ref*, you will hit an exception and your *XR* will fail to create.
+If you are working in a scenario where you have multiple *Compositions* calling the same *XRD* and you don't pass a *Composition Ref*, you will run in to some messy behavior where the *XR* appears to select a *Composition* at random without consistency. I cannot be sure but I suspect that this is due to the way Kubernetes returns results from an endpoint as a list, to avoid such chaotic behaviour, it would be advisable to be as specific as possible about the *Composition* you want to work with unless you know for sure there is only one to be selected!
 
 ## More Functionality?
 
