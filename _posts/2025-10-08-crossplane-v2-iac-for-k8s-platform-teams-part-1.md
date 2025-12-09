@@ -229,11 +229,19 @@ The below manifests will create a single *ClusterProviderConfig*:
 apiVersion: aws.m.upbound.io/v1beta1 #--Namespaced endpoint. Allows namespaced MR creation.
 kind: ClusterProviderConfig          
 metadata:
-  name: aws-s3
+  name: aws
 spec:
   credentials:
-    source: IRSA #--Look up credentials from the environment, using IRSA. As our Provider already has
-                 #--this loaded in it's environment, authentication is transparent
+    source: IRSA #--Look up credentials from the environment, using IRSA. As our Provider already has this loaded in it's env, authentication is transparent
+  #--This configuration allows us to link multiple AWS services to a single ClusterProviderConfig
+  endpoint:
+    url:
+      type: Dynamic
+      dynamic:
+        host: amazonaws.com
+        protocol: https
+    services: [s3] #--Expand this list as needed for other AWS services, sqs, iam, ec2 etc.
+
 ```
 
 Apply with:
@@ -274,7 +282,7 @@ spec:
     region: eu-west-2 #--AWS Region
   providerConfigRef:
     kind: ClusterProviderConfig
-    name: aws-s3 #--Provider config as defined earlier
+    name: aws #--ProviderConfig as defined earlier, calling the S3 service
 ---
 apiVersion: s3.aws.m.upbound.io/v1beta1
 kind: Bucket
@@ -287,7 +295,7 @@ spec:
     region: eu-west-2
   providerConfigRef:
     kind: ClusterProviderConfig
-    name: aws-s3 #--Provider config as defined earlier
+    name: aws
 ```
 
 Apply with:
