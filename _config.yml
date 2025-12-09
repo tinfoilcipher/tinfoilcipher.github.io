@@ -1,0 +1,43 @@
+name: tinfoilcipher
+
+description: Solutions from the DevOps front lines
+
+avatar: /assets/avatar.png
+
+footer-links:
+  email: andy@tinfoilcipher.co.uk
+  github: tinfoilcipher
+  linkedin: awelshuk
+
+paginate: 5
+
+paginate_path: "/page:num"
+
+url: https://tinfoilcipher.github.io
+
+baseurl: ""
+
+permalink: /:year/:month/:day/:title/
+
+version: v1.2.0
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+
+sass:
+  style: :expanded
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-paginate
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - CNAME
